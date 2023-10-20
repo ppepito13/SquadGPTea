@@ -13,6 +13,7 @@ import ApiTest from './pages/Test/ApiTest';
 import ComponentTest from './pages/Test/ComponentsTest';
 import Logout from './pages/Login/Logout';
 import Wall from './pages/kid/wall';
+// import NewPostAdvance from './pages/kid/NewPost/NewPostAdvance';
 
 const App = () =>{
   const dispatch = store.dispatch;
@@ -42,6 +43,7 @@ const App = () =>{
       return (
         <Route path="/" element={<Layout menu={menu} disableMenu={disableMenu}/>}>
           <Route index element={<Wall />} />
+          // <Route path="newpost" element={<NewPostAdvance />} />
           <Route path="logout" element={<Logout />} />
           <Route path="*" element={<Wall />} />
         </Route>
@@ -90,14 +92,16 @@ const App = () =>{
         </Route>
       )
     }else{
-      <Route path="/" element={<Layout menu={[]} disableMenu={disableMenu}/>}>
-        <Route index element={<Login />} />
-        <Route path="logout" element={<Logout />} />
-        <Route path="*" element={<Login />} />
-      </Route>
+      return (
+        <Route path="/" element={<Layout menu={[]} disableMenu={disableMenu}/>}>
+          <Route index element={<Login />} />
+          <Route path="logout" element={<Logout />} />
+          <Route path="*" element={<Login />} />
+        </Route>
+      )
     }
   }
-
+  const routs =
   return (
     <MemoryRouter>
       <Routes>
