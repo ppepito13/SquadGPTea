@@ -3,7 +3,7 @@ import { Card, Col, Row } from "react-onsenui";
 import Moment from 'react-moment';
 import 'moment-timezone';
 import { PostType } from "../../types";
-import { feelLikeList } from "../common/const";
+import { emotionsList, feelLikeList } from "../common/const";
 
 const Post = ({post}:Props) =>{
 var imgNr;
@@ -18,6 +18,11 @@ var imgNr;
                 <img src={feelLikeList.find(fll=>fll.value===post.feelLike)?.img} height='64' width='64'/>
               </Col>}
             <Col size="auto">{post.comment}</Col>
+          </Row>
+          <Row>
+            <Col>
+              {post.emotions?.map(e=><span class="notification">{emotionsList.find(el=>el.value===e)?.label}</span>)}
+            </Col>
           </Row>
           <Row>
             <Col>

@@ -13,8 +13,8 @@ export const feelLikeList = [
 ]
 
 export const emotionsList = [
-    {img:"dupa.png", value:"emotion0", label:"emotion0"},
-    {img:"dupa.png", value:"emotion1", label:"emotion1"},
-    {img:"dupa.png", value:"emotion2", label:"emotion2"},
-    {img:"dupa.png", value:"emotion3", label:"emotion3"}
+    {img:"dupa.png", value:"emotion0", label:"Emotion 0"},
+    {img:"dupa.png", value:"emotion1", label:"Emotion 1"},
+    {img:"dupa.png", value:"emotion2", label:"Emotion 2"},
+    {img:"dupa.png", value:"emotion3", label:"Emotion 3"}
   ]
