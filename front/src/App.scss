@@ -1,0 +1,90 @@
+$bg-transparent: #fff0;
+$bg-light: #fff;
+$bg-dark: #007ac9;
+$btn-red: #ec4371;
+
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.bg{
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  z-index: -100;
+}
+
+.menuLogo{
+  width: 80%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 0px 20px;
+}
+
+.page__background{
+  background-color: $bg-transparent !important;
+}
+
+.page--menu__background{
+  background-color: $bg-dark !important;
+}
+
+.page--main__content{
+  padding: 10px;
+}
+
+.page--main__background{
+  backdrop-filter: blur(10px);
+}
+
+.page--main-browser__background{
+  // backdrop-filter: blur(10px);
+}
+
+.page--main-browser__content{
+  padding: 10px;
+}
+
+.page--toolbar__content{
+  padding: 10px;
+}
+
+.toolbar--menu{
+  background-color: $bg-dark !important;
+}
+
+.toolbar--menu__center{
+  color: $bg-light !important;
+}
+
+.back-button--menu__icon{
+  fill: $bg-light !important;
+}
+
+.zmdi-menu{
+  fill: $bg-light !important;
+  color: $bg-light;
+}
+
+.list--menu{
+  background-color: $bg-dark !important;
+}
+
+.list-item--not-active{
+  background-color: $bg-dark;
+  color: $bg-light !important;
+}
+
+.list-item--active{
+  background-color: $bg-light;
+  color: $bg-dark;
+  font-weight: bold;
+}
+
+.button--fund{
+  background-color: $btn-red !important;
+  border-radius: 20px !important;
+}

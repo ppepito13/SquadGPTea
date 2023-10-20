@@ -1,0 +1,26 @@
+{
+	"appId": "io.ionic.collabothon",
+	"appName": "collabothon",
+	"bundledWebRuntime": false,
+	"npmClient": "npm",
+	"webDir": "build",
+	"cordova": {},
+	"plugins": {
+		"BackgroundRunner": {
+			"label": "com.example.background.task",
+			"src": "runner.js",
+			"event": "myCustomEvent",
+			"repeat": true,
+			"interval": 2,
+			"autoStart": false
+		},
+		"LocalNotifications": {
+			"smallIcon": "ic_stat_icon_config_sample",
+			"iconColor": "#488AFF",
+			"sound": "elephant.mp3"
+		}
+	},
+	"server": {
+		"url": "http://192.168.24.10:8100"
+	}
+}
