@@ -14,8 +14,8 @@ import ComponentTest from './pages/Test/ComponentsTest';
 import Logout from './pages/Login/Logout';
 import Wall from './pages/kid/wall';
 import NewPostAdvance from './pages/kid/NewPost/NewPostAdvance';
-import HomeWork from './pages/kid/HomeWork';
-
+import HomeWork from './pages/common/HomeWork';
+import NewHomeWork from './pages/terapist/NewHomeWork';
 const App = () =>{
   const dispatch = store.dispatch;
   const user = useSelector((root:RootState)=>root.userSlice.api.user)
@@ -47,6 +47,7 @@ const App = () =>{
           <Route index element={<Wall />} />
           <Route path="newpost" element={<NewPostAdvance />} />
           <Route path="homework" element={<HomeWork />} />
+          <Route path="newhomework" element={<NewHomeWork />} />
           <Route path="logout" element={<Logout />} />
           <Route path="*" element={<Wall />} />
         </Route>
@@ -71,6 +72,8 @@ const App = () =>{
       return (
         <Route path="/" element={<Layout menu={menu} disableMenu={disableMenu}/>}>
           <Route index element={<Wall />} />
+          <Route path="homework" element={<HomeWork />} />
+          <Route path="newhomework" element={<NewHomeWork />} />
           <Route path="logout" element={<Logout />} />
           <Route path="*" element={<Wall />} />
         </Route>

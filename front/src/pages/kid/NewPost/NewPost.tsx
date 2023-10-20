@@ -28,7 +28,7 @@ const NewPost = () =>{
             placeholder='Start writing' />
             <Button modifier="" onClick={()=>addPost()}>send</Button>
             <Button onClick={()=>navigate("/newpost")}>navigate</Button>
-{showModal}dupa
+{showModal}
 
             <Modal showModal={showModal} setShowModal={setShowModal}>
               <div>Loading ...</div>
