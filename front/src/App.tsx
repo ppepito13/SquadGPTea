@@ -12,6 +12,7 @@ import VoiceTest from './pages/Test/VoiceTest';
 import ApiTest from './pages/Test/ApiTest';
 import ComponentTest from './pages/Test/ComponentsTest';
 import Logout from './pages/Login/Logout';
+import Wall from './pages/kid/wall';
 
 const App = () =>{
   const dispatch = store.dispatch;
@@ -30,35 +31,77 @@ const App = () =>{
     })
   }
 
-  const menu = [
-    {label:"root", href:"/"},
-    {label:"api", href:"/api"},
-    {label:"camera", href:"/camera"},
-    {label:"voice", href:"/voice"},
-    {label:"unknown", href:"/unknown"},
-    {label:"logout", href:"/logout"}
-  ]
+  const userType = "kid";
+
+  const getRoutes = (userType:string) =>{
+    if(user && userType === "kid"){
+      const menu = [
+        {label:"root", href:"/"},
+        {label:"logout", href:"/logout"}
+      ]
+      return (
+        <Route path="/" element={<Layout menu={menu} disableMenu={disableMenu}/>}>
+          <Route index element={<Wall />} />
+          <Route path="logout" element={<Logout />} />
+          <Route path="*" element={<Wall />} />
+        </Route>
+      )
+    }else if(user && userType === "parent"){
+      const menu = [
+        {label:"root", href:"/"},
+        {label:"logout", href:"/logout"}
+      ]
+      return (
+        <Route path="/" element={<Layout menu={menu} disableMenu={disableMenu}/>}>
+          <Route index element={<Wall />} />
+          <Route path="logout" element={<Logout />} />
+          <Route path="*" element={<Wall />} />
+        </Route>
+      )
+    }else if(user && userType === "terapist"){
+      const menu = [
+        {label:"root", href:"/"},
+        {label:"logout", href:"/logout"}
+      ]
+      return (
+        <Route path="/" element={<Layout menu={menu} disableMenu={disableMenu}/>}>
+          <Route index element={<Wall />} />
+          <Route path="logout" element={<Logout />} />
+          <Route path="*" element={<Wall />} />
+        </Route>
+      )
+    }else if(user && userType === "test"){
+      const menu = [
+        {label:"root", href:"/"},
+        {label:"api", href:"/api"},
+        {label:"camera", href:"/camera"},
+        {label:"voice", href:"/voice"},
+        {label:"unknown", href:"/unknown"},
+        {label:"logout", href:"/logout"}
+      ]
+      return (
+        <Route path="/" element={<Layout menu={menu} disableMenu={disableMenu}/>}>
+          <Route index element={<ApiTest />} />
+          <Route path="api" element={<ApiTest />} />
+          <Route path="camera" element={<CameraTest />} />
+          <Route path="voice" element={<VoiceTest />} />
+          <Route path="logout" element={<Logout />} />
+          <Route path="*" element={<ApiTest />} />
+        </Route>
+      )
+    }else{
+      <Route path="/" element={<Layout menu={[]} disableMenu={disableMenu}/>}>
+        <Route index element={<Login />} />
+        <Route path="logout" element={<Logout />} />
+        <Route path="*" element={<Login />} />
+      </Route>
+    }
+  }
 
   return (
     <MemoryRouter>
       <Routes>
-        <Route path="/" element={<Layout menu={menu} disableMenu={disableMenu}/>}>
-          {
-            user ?
-              <>
-                <Route index element={<ComponentTest />} />
-                <Route path="api" element={<ApiTest />} />
-                <Route path="camera" element={<CameraTest />} />
-                <Route path="voice" element={<VoiceTest />} />
-                <Route path="logout" element={<Logout />} />
-                <Route path="*" element={<ComponentTest />} />
-              </>:
-                <>
-                  <Route index element={<Login />} />
-                  <Route path="*" element={<Login />} />
-                </>
-          }
-        </Route>
+          { getRoutes(userType) }
       </Routes>
     </MemoryRouter>
   );
