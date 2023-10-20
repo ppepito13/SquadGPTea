@@ -1,0 +1,38 @@
+---
+- name: Infra preps
+  hosts: infra
+  become: yes
+
+  tasks:
+  - name: "install nodejs"
+    package:
+      name: nodejs
+      state: present
+
+  - name: "install npm"
+    package:
+      name: npm
+      state: present
+
+  - name: "install mongodb"
+    package:
+      name: mongodb-org
+      state: present
+      #notify:
+      #- start mongodb
+
+  #handlers:
+  #- name: start mongodb
+    #service: name=mongodb state=started
+
+  - name: Install git
+    package:
+      name: git-all
+      state: present
+
+  - name: Install Ionic
+    npm: >
+     name=ionic
+     state=present
+     global=yes
+     version=latest
