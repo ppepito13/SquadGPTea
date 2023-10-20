@@ -18,6 +18,7 @@ interface Post{
   comment: string;
   feelLike: number;
   emotions: string[];
+  images: string[];
   createdAt?: Date;
   objectId?: string;
   updatedAt?: Date;

@@ -19,7 +19,7 @@ const NewPostAdvance = () =>{
   const [comment, setComment] = useState("");
   const [feelLike, setFeelLike] = useState(-1);
   const [emotions, setEmotions] = useState([] as string[]);
-  const [img, setImg] = useState([] as string[]);
+  const [images, setImages] = useState([] as string[]);
 
   const feelLikeList = [
     {img:verySadIcon, value:0},
@@ -38,7 +38,7 @@ const NewPostAdvance = () =>{
 
   const addPost = () =>{
     dispatch(newPost({
-      comment, feelLike, emotions
+      comment, feelLike, emotions, images
     })).then(res=>{
       navigate("/")
     })
@@ -54,7 +54,7 @@ const NewPostAdvance = () =>{
     let blob = await fetch(image.webPath!).then(r => r.blob());
     var file = new File([blob], "name");
     dispatch(uploadFile("test1", file)).then((res)=>{
-      setImg([...img, res.url]);
+      setImages([...images, res.url]);
     })
   };
 
@@ -93,7 +93,7 @@ const NewPostAdvance = () =>{
           </Col>)}
       </Row>
       <Row>
-        {img.map((im, i)=>(
+        {images.map((im, i)=>(
           <Col><img src={im} width="200" alt="img"/></Col>
         ))}
       </Row>
