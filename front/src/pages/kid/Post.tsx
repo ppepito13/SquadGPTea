@@ -18,23 +18,22 @@ const feelLikeList = [
 const Post = ({post}:Props) =>{
 var imgNr;
   return(
-    
+
     <Card modifier="post">
       <Row>
       <Col size="auto">
         <Row>
           <Col><img src={feelLikeList.find(fll=>fll.value===post.feelLike)?.img} height='64' width='64'></img></Col>
-        
         </Row>
         <Row>
-            <Col><pre>{JSON.stringify(post.createdAt, null, 2)}</pre></Col>
+            <Col>{post.createdAt}</Col>
         </Row>
       </Col>
-      <Col size="auto"><pre>{JSON.stringify(post.comment, null, 2)}</pre></Col>
+      <Col size="auto">{post.comment}</Col>
       </Row>
-      
+
     </Card>
-    
+
   )
 }
 
