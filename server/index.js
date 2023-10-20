@@ -13,6 +13,7 @@ export const app = express();
 
 // Serve static assets from the /public folder
 app.use('/public', express.static(path.join(__dirname, '/public')));
+app.use('/', express.static(path.join(__dirname, '/react')));
 
 // Serve the Parse API on the /parse URL prefix
 if (!process.env.TESTING) {
