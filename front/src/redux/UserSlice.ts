@@ -20,7 +20,7 @@ export const UserSlice = createSlice({
 
 export const login = ()=>{
   return (dispatch:Redux.Dispatch) =>{
-      api.post('/login', {"username":"test","password":"$2a$10$IQN0gfwPIobHHE15gYl68uMe07LzCNohY2RkPLyUEV/kmE4hK0hQe"}).then((response:any) =>{
+      api.post('/login', {"username":"test","password":"test"}).then((response:any) =>{
         dispatch(setUser(response.data))
         // window.location.reload();
       }).catch((error:any) =>{

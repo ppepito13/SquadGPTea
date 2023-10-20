@@ -89,6 +89,35 @@ h1 {
   border-radius: 20px !important;
 }
 
-.card{
+.card--post{
   width: 100%
+}
+
+.card--modal{
+  width:500px;
+  margin: auto !important;
+}
+
+.feelLikeIcon{
+  padding: 20px;
+  margin: 10px;
+}
+
+.feelLikeIcon-active{
+  border: black 1px solid;
+  border-radius: 10px;
+}
+
+.emotionIcon{
+  padding: 20px;
+  margin: 10px;
+}
+
+.emotionIcon-active{
+  border: black 1px solid;
+  border-radius: 10px;
+}
+
+.textarea{
+  width:100%
 }

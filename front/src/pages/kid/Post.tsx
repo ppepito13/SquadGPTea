@@ -4,7 +4,7 @@ import { Card } from "react-onsenui";
 const Post = ({post}:Props) =>{
 
   return(
-    <Card>
+    <Card modifier="post">
       <pre>{JSON.stringify(post, null, 2)}</pre>
     </Card>
   )
@@ -16,9 +16,11 @@ interface Props{
 
 interface Post{
   comment: string;
-  createdAt: Date;
-  objectId: string;
-  updatedAt: Date;
+  feelLike: number;
+  emotions: string[];
+  createdAt?: Date;
+  objectId?: string;
+  updatedAt?: Date;
 }
 
 export default Post;

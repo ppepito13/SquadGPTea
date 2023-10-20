@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { BackButton, Card, Input, LazyList, ListItem, Tab, Tabbar, Toolbar, ToolbarButton } from 'react-onsenui';
+import { LazyList, ListItem } from 'react-onsenui';
 import { useSelector } from 'react-redux';
 import { requestPosts } from '../../redux/PostSlice';
 import store, { RootState } from '../../redux/store';
-import NewPost from './NewPost';
+import NewPost from './NewPost/NewPost';
 import Post from './Post';
 
 const Wall = () =>{
   const dispatch = store.dispatch;
   let posts:Post[] = useSelector((root:RootState)=>root.postSlice.postStore.posts);
-// console.log(posts?.sort((a, b) => a.createdAt > b.createdAt ? 1 : -1))
-console.log(posts)
 
   useEffect(()=>{
     dispatch(requestPosts())
