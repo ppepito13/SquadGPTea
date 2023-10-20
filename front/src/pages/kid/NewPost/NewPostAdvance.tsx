@@ -9,6 +9,8 @@ import sadIcon from '../../../assets/feel-like/2_sad.png';
 import neutralIcon from '../../../assets/feel-like/3_neutral.png';
 import hepiIcon from '../../../assets/feel-like/4_hepi.png';
 import veryHepiIcon from '../../../assets/feel-like/5_very_hepi.png';
+import { Camera, CameraResultType } from '@capacitor/camera';
+import { uploadFile } from '../../../redux/ApiSice';
 
 const NewPostAdvance = () =>{
   const dispatch = store.dispatch;
@@ -17,6 +19,7 @@ const NewPostAdvance = () =>{
   const [comment, setComment] = useState("");
   const [feelLike, setFeelLike] = useState(-1);
   const [emotions, setEmotions] = useState([] as string[]);
+  const [img, setImg] = useState([] as string[]);
 
   const feelLikeList = [
     {img:verySadIcon, value:0},
@@ -41,8 +44,22 @@ const NewPostAdvance = () =>{
     })
   }
 
+  const takePicture = async () => {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: true,
+      resultType: CameraResultType.Uri
+    });
+    var imageUrl = image.webPath;
+    let blob = await fetch(image.webPath!).then(r => r.blob());
+    var file = new File([blob], "name");
+    dispatch(uploadFile("test1", file)).then((res)=>{
+      setImg([...img, res.url]);
+    })
+  };
+
   return(
-      <section>
+    <section>
       <Row>
         <Col>
           <textarea
@@ -71,17 +88,23 @@ const NewPostAdvance = () =>{
                 setEmotions([...emotions, el.value])
               }
             }}>
-              <img src={el.img}/>
+              {el.label}
             </div>
           </Col>)}
       </Row>
       <Row>
+        {img.map((im, i)=>(
+          <Col><img src={im} width="200" alt="img"/></Col>
+        ))}
+      </Row>
+      <Row>
         <Col>
           <Button modifier="" onClick={()=>addPost()}>send</Button>
+          <Button modifier="fund" onClick={()=>takePicture()}>CAMERA</Button>
         </Col>
-        </Row>
+      </Row>
 
-      </section>
+    </section>
   )
 }
 
