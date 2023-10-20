@@ -21,8 +21,13 @@ var imgNr;
           </Row>
           <Row>
             <Col>
-              {post.emotions?.map(e=><span class="notification">{emotionsList.find(el=>el.value===e)?.label}</span>)}
+              {post.emotions?.map(e=><span class="notification" style = {{'background-color':emotionsList.find(el=>el.value===e)?.color}}>{emotionsList.find(el=>el.value===e)?.label}</span>)}
             </Col>
+          </Row>
+          <Row>
+            
+              {post.images?.map(e=><Col><img src={e} height='64' width='64'/></Col>)}
+            
           </Row>
           <Row>
             <Col>
