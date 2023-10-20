@@ -103,6 +103,10 @@ h1 {
   margin: 10px;
 }
 
+.feelLikeIcon-icon{
+  width: 50px;
+}
+
 .feelLikeIcon-active{
   border: black 1px solid;
   border-radius: 10px;
@@ -119,5 +123,5 @@ h1 {
 }
 
 .textarea{
-  width:100%
+  width:100% !important;
 }

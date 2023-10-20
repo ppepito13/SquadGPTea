@@ -14,6 +14,7 @@ import ComponentTest from './pages/Test/ComponentsTest';
 import Logout from './pages/Login/Logout';
 import Wall from './pages/kid/wall';
 import NewPostAdvance from './pages/kid/NewPost/NewPostAdvance';
+import HomeWork from './pages/kid/HomeWork';
 
 const App = () =>{
   const dispatch = store.dispatch;
@@ -38,12 +39,14 @@ const App = () =>{
     if(user && userType === "kid"){
       const menu = [
         {label:"root", href:"/"},
+        {label:"homework", href:"/homework"},
         {label:"logout", href:"/logout"}
       ]
       return (
         <Route path="/" element={<Layout menu={menu} disableMenu={disableMenu}/>}>
           <Route index element={<Wall />} />
           <Route path="newpost" element={<NewPostAdvance />} />
+          <Route path="homework" element={<HomeWork />} />
           <Route path="logout" element={<Logout />} />
           <Route path="*" element={<Wall />} />
         </Route>
