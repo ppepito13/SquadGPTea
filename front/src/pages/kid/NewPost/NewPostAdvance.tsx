@@ -4,13 +4,9 @@ import { Button, Card, Col, Input, Navigator, Page, Row } from 'react-onsenui';
 import { Link, useNavigate } from 'react-router-dom';
 import { newPost } from '../../../redux/PostSlice';
 import store from '../../../redux/store';
-import verySadIcon from '../../../assets/feel-like/1_very_sad.png';
-import sadIcon from '../../../assets/feel-like/2_sad.png';
-import neutralIcon from '../../../assets/feel-like/3_neutral.png';
-import hepiIcon from '../../../assets/feel-like/4_hepi.png';
-import veryHepiIcon from '../../../assets/feel-like/5_very_hepi.png';
 import { Camera, CameraResultType } from '@capacitor/camera';
 import { uploadFile } from '../../../redux/ApiSice';
+import { emotionsList, feelLikeList } from '../../common/const';
 
 const NewPostAdvance = () =>{
   const dispatch = store.dispatch;
@@ -20,21 +16,6 @@ const NewPostAdvance = () =>{
   const [feelLike, setFeelLike] = useState(-1);
   const [emotions, setEmotions] = useState([] as string[]);
   const [images, setImages] = useState([] as string[]);
-
-  const feelLikeList = [
-    {img:verySadIcon, value:0},
-    {img:sadIcon, value:1},
-    {img:neutralIcon, value:2},
-    {img:hepiIcon, value:3},
-    {img:veryHepiIcon, value:4}
-  ]
-
-  const emotionsList = [
-    {img:"dupa.png", value:"emotion0", label:"emotion0"},
-    {img:"dupa.png", value:"emotion1", label:"emotion1"},
-    {img:"dupa.png", value:"emotion2", label:"emotion2"},
-    {img:"dupa.png", value:"emotion3", label:"emotion3"}
-  ]
 
   const addPost = () =>{
     dispatch(newPost({

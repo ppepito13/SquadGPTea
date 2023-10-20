@@ -1,4 +1,4 @@
-export interface Post{
+export interface PostType{
   comment: string;
   feelLike: number;
   emotions: string[];

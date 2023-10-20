@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import Redux from 'redux';
 import api from '../api';
-import Post from '../pages/kid/Post';
+import { PostType } from '../types';
 
 // let userInit:User = JSON.parse(localStorage.getItem("user") || JSON.stringify({exp:1000, resources:1000, tech:basicTech}));
 
@@ -9,7 +9,7 @@ export const PostSlice = createSlice({
   name: 'userData',
   initialState: {
     postStore: {
-      posts:[] as Post[]
+      posts:[] as PostType[]
     },
   },
   reducers: {
@@ -38,7 +38,7 @@ export const requestPosts = ()=>{
   }
 }
 
-export const newPost = (newPost:Post) =>{
+export const newPost = (newPost:PostType) =>{
   return (dispatch:Redux.Dispatch) =>{
     return new Promise((resolve) =>{
       api.post('/classes/Post', newPost).then((response:any) =>{
