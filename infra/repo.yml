@@ -1,0 +1,26 @@
+---
+- name: Setup required repositories
+  hosts: lab
+  become: yes
+
+  tasks:
+  - name: Add MongoDB repo - rhel
+    yum_repository:
+      name: MongoDB
+      description: MongoDB Repository
+      baseurl: "https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/7.0/x86_64/"
+      gpgcheck: yes
+      gpgkey: https://www.mongodb.org/static/pgp/server-7.0.asc
+      enabled: yes
+    when: ansible_os_family == "RedHat"
+
+  - name: Add an Apt signing key
+    apt_key:
+      url: https://pgp.mongodb.com/server-7.0.asc
+      state: present
+    when: ansible_os_family == "Debian"
+
+  - name: Add MongoDB repo - ubuntu
+    apt_repository:
+      repo: deb https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse
+    when: ansible_os_family == "Debian"
