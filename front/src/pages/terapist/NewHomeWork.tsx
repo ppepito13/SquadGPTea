@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Col, Input, Row} from 'react-onsenui';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { newHomework } from '../../redux/HomeworkSlice';
 import store, { RootState } from '../../redux/store';
@@ -7,12 +8,13 @@ import store, { RootState } from '../../redux/store';
 const NewHomeWork = () =>{
   const dispatch = store.dispatch;
   const navigate = useNavigate();
+  const selectedKid = useSelector((root:RootState)=>root.statusSlice.status.selectedKid)
 
   const [title, setTitle] = useState("");
   const [descr, setDescr] = useState("");
 
   const addHomeWork = () =>{
-    dispatch(newHomework({title, descr}))
+    dispatch(newHomework({title, descr}, selectedKid))
     navigate("/homework")
   }
 

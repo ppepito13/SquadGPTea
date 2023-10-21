@@ -10,15 +10,17 @@ import CameraTest from './pages/Test/CameraTest';
 import { AndroidFullScreen } from '@awesome-cordova-plugins/android-full-screen';
 import VoiceTest from './pages/Test/VoiceTest';
 import ApiTest from './pages/Test/ApiTest';
-import ComponentTest from './pages/Test/ComponentsTest';
 import Logout from './pages/Login/Logout';
 import Wall from './pages/kid/wall';
 import NewPostAdvance from './pages/kid/NewPost/NewPostAdvance';
 import HomeWork from './pages/common/HomeWork';
 import NewHomeWork from './pages/terapist/NewHomeWork';
+import SelectKid from './pages/terapist/SelectKid';
 const App = () =>{
   const dispatch = store.dispatch;
-  const user = useSelector((root:RootState)=>root.userSlice.api.user)
+  const user = useSelector((root:RootState)=>root.userSlice.api.user);
+  const selectedKid = useSelector((root:RootState)=>root.statusSlice.status.selectedKid);
+
   let disableMenu = !user;
 
   useEffect(()=>{
@@ -36,25 +38,24 @@ const App = () =>{
   const userType = "kid";
 
   const getRoutes = (userType:string) =>{
-    if(user && userType === "kid"){
+    if(user && user.type === "kid"){
       const menu = [
-        {label:"root", href:"/"},
+        {label:"wall", href:"/"},
         {label:"homework", href:"/homework"},
         {label:"logout", href:"/logout"}
       ]
       return (
-        <Route path="/" element={<Layout menu={menu} disableMenu={disableMenu}/>}>
+        <Route path="/" element={<Layout menu={menu} disableMenu={disableMenu} user={user}/>}>
           <Route index element={<Wall />} />
           <Route path="newpost" element={<NewPostAdvance />} />
           <Route path="homework" element={<HomeWork />} />
-          <Route path="newhomework" element={<NewHomeWork />} />
           <Route path="logout" element={<Logout />} />
           <Route path="*" element={<Wall />} />
         </Route>
       )
-    }else if(user && userType === "parent"){
+    }else if(user && user.type === "parent"){
       const menu = [
-        {label:"root", href:"/"},
+        {label:"wall", href:"/"},
         {label:"logout", href:"/logout"}
       ]
       return (
@@ -64,20 +65,37 @@ const App = () =>{
           <Route path="*" element={<Wall />} />
         </Route>
       )
-    }else if(user && userType === "terapist"){
-      const menu = [
-        {label:"root", href:"/"},
-        {label:"logout", href:"/logout"}
-      ]
-      return (
-        <Route path="/" element={<Layout menu={menu} disableMenu={disableMenu}/>}>
-          <Route index element={<Wall />} />
-          <Route path="homework" element={<HomeWork />} />
-          <Route path="newhomework" element={<NewHomeWork />} />
-          <Route path="logout" element={<Logout />} />
-          <Route path="*" element={<Wall />} />
-        </Route>
-      )
+    }else if(user && user.type === "terap"){
+      if(selectedKid){
+        const menu = [
+          {label:"select kid", href:"/"},
+          {label:"wall", href:"/wall"},
+          {label:"homework", href:"/homework"},
+          {label:"logout", href:"/logout"}
+        ]
+        return (
+          <Route path="/" element={<Layout menu={menu} disableMenu={disableMenu} user={selectedKid}/>}>
+            <Route index element={<SelectKid />} />
+            <Route path="wall" element={<Wall selectedKid={selectedKid}/>} />
+            <Route path="homework" element={<HomeWork selectedKid={selectedKid} />} />
+            <Route path="newhomework" element={<NewHomeWork />} />
+            <Route path="logout" element={<Logout />} />
+            <Route path="*" element={<SelectKid />} />
+          </Route>
+        )
+      }else{
+        const menu = [
+          {label:"select kid", href:"/"},
+          {label:"logout", href:"/logout"}
+        ]
+        return (
+          <Route path="/" element={<Layout menu={menu} disableMenu={disableMenu}/>}>
+            <Route index element={<SelectKid />} />
+            <Route path="logout" element={<Logout />} />
+            <Route path="*" element={<SelectKid />} />
+          </Route>
+        )
+      }
     }else if(user && userType === "test"){
       const menu = [
         {label:"root", href:"/"},

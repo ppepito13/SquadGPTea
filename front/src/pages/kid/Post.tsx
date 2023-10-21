@@ -1,14 +1,18 @@
 import react from "react";
-import { Card, Col, Row } from "react-onsenui";
+import { Button, Card, Col, Row } from "react-onsenui";
 import Moment from 'react-moment';
 import 'moment-timezone';
 import { PostType } from "../../types";
 import { emotionsList, feelLikeList } from "../common/const";
+import store from "../../redux/store";
+import { sharePost } from "../../redux/PostSlice";
 
-const Post = ({post}:Props) =>{
-var imgNr;
+const Post = ({post, editable}:Props) =>{
+  const dispatch = store.dispatch;
+
+  const shared = post.ACL && post.ACL["hzcEe6itaG"];
+
   return(
-
     <Card modifier="post">
       <Row>
         <Col size="auto">
@@ -25,11 +29,15 @@ var imgNr;
             </Col>
           </Row>
           <Row>
-            
               {post.images?.map(e=><Col><img src={e} height='64' width='64'/></Col>)}
-            
           </Row>
           <Row>
+            {editable &&
+              <Col>
+                {!shared && <Button onCLick={()=>dispatch(sharePost(post, true))}>Share</Button>}
+                {shared && <Button onCLick={()=>dispatch(sharePost(post, false))}>Unshare</Button>}
+              </Col>
+            }
             <Col>
               <Moment date={post.createdAt} format="YYYY/MM/DD hh:mm"></Moment>
             </Col>
@@ -44,6 +52,7 @@ var imgNr;
 
 interface Props{
   post:PostType;
+  editable: boolean;
 }
 
 export default Post;

@@ -9,7 +9,9 @@ const Test = () =>{
 
   return (
     <section>
-      <Button onClick={()=>dispatch(login())}>LOGIN</Button>
+      <Button onClick={()=>dispatch(login("test", "test"))}>LOGIN kid1</Button>
+      <Button onClick={()=>dispatch(login("kid2", "kid2"))}>LOGIN kid2</Button>
+      <Button onClick={()=>dispatch(login("terap1", "terap1"))}>LOGIN terap1</Button>
     </section>
   );
 }

@@ -18,9 +18,9 @@ export const UserSlice = createSlice({
   },
 })
 
-export const login = ()=>{
+export const login = (username:string, password:string)=>{
   return (dispatch:Redux.Dispatch) =>{
-      api.post('/login', {"username":"test","password":"test"}).then((response:any) =>{
+      api.post('/login', {"username":username,"password":password}).then((response:any) =>{
         dispatch(setUser(response.data))
         // window.location.reload();
       }).catch((error:any) =>{

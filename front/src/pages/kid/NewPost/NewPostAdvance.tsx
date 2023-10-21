@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Button, Card, Col, Input, Navigator, Page, Row } from 'react-onsenui';
 import { Link, useNavigate } from 'react-router-dom';
 import { newPost } from '../../../redux/PostSlice';
-import store from '../../../redux/store';
+import store, { RootState } from '../../../redux/store';
 import { Camera, CameraResultType } from '@capacitor/camera';
 import { uploadFile } from '../../../redux/ApiSice';
 import { emotionsList, feelLikeList } from '../../common/const';

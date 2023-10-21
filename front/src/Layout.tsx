@@ -16,7 +16,7 @@ const webChatOptions:WebChatConfig = {
   // Use the onBeforeRender or onAfterRender prop instead.
 };
 
-const Layout = ({menu, disableMenu}: React.PropsWithChildren<Props>) =>{
+const Layout = ({menu, disableMenu, user}: React.PropsWithChildren<Props>) =>{
   const [openMenu, setOpenMenu] = useState(isBrowser);
   const navigate = useNavigate();
   const location = useLocation();
@@ -33,7 +33,7 @@ const Layout = ({menu, disableMenu}: React.PropsWithChildren<Props>) =>{
           </MobileView>
         </div>
         <div className="center">
-          Title
+          {user?.username}
         </div>
         <div className="right">
           <MobileView>
@@ -87,6 +87,7 @@ const Layout = ({menu, disableMenu}: React.PropsWithChildren<Props>) =>{
 interface Props{
   menu:AppLink[],
   disableMenu: boolean;
+  user?: any
 }
 
 interface AppLink{
