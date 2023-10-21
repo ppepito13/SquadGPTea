@@ -16,6 +16,7 @@ import NewPostAdvance from './pages/kid/NewPost/NewPostAdvance';
 import HomeWork from './pages/common/HomeWork';
 import NewHomeWork from './pages/terapist/NewHomeWork';
 import SelectKid from './pages/terapist/SelectKid';
+import ChartEmo from './pages/common/ChartEmo';
 const App = () =>{
   const dispatch = store.dispatch;
   const user = useSelector((root:RootState)=>root.userSlice.api.user);
@@ -42,6 +43,7 @@ const App = () =>{
       const menu = [
         {label:"wall", href:"/"},
         {label:"homework", href:"/homework"},
+        {label:"chart", href:"/chart"},
         {label:"logout", href:"/logout"}
       ]
       return (
@@ -49,6 +51,7 @@ const App = () =>{
           <Route index element={<Wall />} />
           <Route path="newpost" element={<NewPostAdvance />} />
           <Route path="homework" element={<HomeWork />} />
+          <Route path="chart" element={<ChartEmo />} />
           <Route path="logout" element={<Logout />} />
           <Route path="*" element={<Wall />} />
         </Route>
@@ -71,6 +74,7 @@ const App = () =>{
           {label:"select kid", href:"/"},
           {label:"wall", href:"/wall"},
           {label:"homework", href:"/homework"},
+          {label:"chart", href:"/chart"},
           {label:"logout", href:"/logout"}
         ]
         return (
