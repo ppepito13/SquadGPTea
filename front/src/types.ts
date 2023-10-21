@@ -3,6 +3,8 @@ export interface PostType{
   feelLike: number;
   emotions: string[];
   images: string[];
+  homework: any;
+  owner?: any;
   ACL?:any;
   createdAt?: Date;
   objectId?: string;
@@ -12,6 +14,7 @@ export interface PostType{
 export interface HomeworkType{
   title:string;
   descr:string;
+  owner?: any;
   createdAt?: Date;
   objectId?: string;
   updatedAt?: Date;
