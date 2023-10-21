@@ -44,6 +44,26 @@ export const requestPosts = (selectedKid?:UserType)=>{
   }
 }
 
+export const requestPostsById = (ids:string[])=>{
+  return (dispatch:Redux.Dispatch) =>{
+    return new Promise((resolve) =>{
+      const where= {
+        "$or":ids.map(id=>({homework:{"__type":"Pointer", className:"Homework", objectId:id}}))
+      }
+      const whereStr = "&where="+JSON.stringify(where);
+      api.get('/classes/Post?order=-createdAt'+whereStr).then((response:any) =>{
+        dispatch(setPosts(response.data.results))
+        resolve(response.data);
+        return response.data;
+      }).catch((error:any) =>{
+        console.log(error)
+        dispatch(setPosts(error))
+        return error;
+      });
+    });
+  }
+}
+
 export const newPost = (newPost:PostType) =>{
   return (dispatch:Redux.Dispatch) =>{
     return new Promise((resolve) =>{

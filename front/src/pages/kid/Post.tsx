@@ -25,7 +25,7 @@ const Post = ({post, editable}:Props) =>{
           </Row>
           <Row>
             <Col>
-              {post.emotions?.map(e=><span class="notification" style = {{'background-color':emotionsList.find(el=>el.value===e)?.color}}>{emotionsList.find(el=>el.value===e)?.label}</span>)}
+              {post.emotions?.map(e=><span className="notification" style={{'background-color':emotionsList.find(el=>el.value===e)?.color}}>{emotionsList.find(el=>el.value===e)?.label}</span>)}
             </Col>
           </Row>
           <Row>

@@ -2,6 +2,7 @@ $bg-transparent: #fff0;
 $bg-light: #fff;
 $bg-dark: #007ac9;
 $btn-red: #ec4371;
+$bg-card: #ccc3;
 
 
 h1 {
@@ -90,7 +91,8 @@ h1 {
 }
 
 .card--post{
-  width: 100%
+  width: 100%;
+  background-color: $bg-card !important;
 }
 
 .card--modal{
