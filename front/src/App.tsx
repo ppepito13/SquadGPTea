@@ -24,6 +24,7 @@ const App = () =>{
   const dispatch = store.dispatch;
   const user:UserType = useSelector((root:RootState)=>root.userSlice.api.user);
   const selectedKid = useSelector((root:RootState)=>root.statusSlice.status.selectedKid);
+  const availableKids:UserType[] = useSelector((root:RootState)=>root.statusSlice.status.availableKids);
 
   let disableMenu = !user;
 
@@ -36,8 +37,12 @@ const App = () =>{
   useEffect(()=>{
     if(user?.type === 'kid'){
       dispatch(startLiveQuery(user.objectId, [user.therapist.objectId]));
+    }else if(user?.type === 'terap'){
+      if(availableKids.length>0){
+        dispatch(startLiveQuery(user.objectId, availableKids.map(ak=>ak.objectId)));
+      }
     }
-  }, [])
+  }, [availableKids])
 
   if(user){
     dispatch(validate()).catch(err=>{
@@ -86,6 +91,7 @@ const App = () =>{
           {label:"wall", href:"/wall"},
           {label:"homework", href:"/homework"},
           {label:"chart", href:"/chart"},
+          {label:"chat", href:"/chat"},
           {label:"logout", href:"/logout"}
         ]
         return (
@@ -94,6 +100,7 @@ const App = () =>{
             <Route path="wall" element={<Wall selectedKid={selectedKid}/>} />
             <Route path="homework" element={<HomeWork selectedKid={selectedKid} />} />
             <Route path="newhomework" element={<NewHomeWork />} />
+            <Route path="chat" element={<Chat selectedKid={selectedKid}/>} />
             <Route path="logout" element={<Logout />} />
             <Route path="*" element={<SelectKid />} />
           </Route>

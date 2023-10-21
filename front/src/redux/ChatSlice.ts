@@ -5,15 +5,14 @@ import Parse from 'parse';
 import store from './store';
 import { MsgType } from '../types';
 
-// let userInit:User = JSON.parse(localStorage.getItem("user") || JSON.stringify({exp:1000, resources:1000, tech:basicTech}));
-
 export const ChatSlice = createSlice({
   name: 'userData',
   initialState: {
     chat: {
       conversations: {},
       partycipantsIds: [],
-      count: 0
+      count: 0,
+      liveQuery: []
     },
   },
   reducers: {
@@ -22,6 +21,13 @@ export const ChatSlice = createSlice({
     },
     setPartycipats: ({chat}, {payload}) => {
       chat.partycipantsIds = payload;
+    },
+    clearLiveQuery: ({chat}) => {
+      chat.liveQuery.forEach(lq=>lq.unsubscribe())
+      chat.liveQuery=[];
+    },
+    addToLiveQuery: ({chat}, {payload}) => {
+      chat.liveQuery.push(payload);
     },
     addToConversaton: ({chat}, {payload}) => {
       chat.partycipantsIds.forEach(p=>{
@@ -40,7 +46,7 @@ export const ChatSlice = createSlice({
 export const startLiveQuery = (autorId:string, partycipantsIds:string[])=>{
   return (dispatch:Redux.Dispatch) =>{
 
-
+    dispatch(clearLiveQuery());
     dispatch(setPartycipats(partycipantsIds));
 
     const where= {
@@ -59,13 +65,14 @@ export const startLiveQuery = (autorId:string, partycipantsIds:string[])=>{
       console.log(error)
       return error;
     });
-
+    const newLiveQuery = [];
     const createLiveQuery = async (field:string, value:any) =>{
       Parse.initialize("collabothon");
       Parse.serverURL = 'https://polarny.it/parse'
       let query = new Parse.Query('Msg');
       query.equalTo(field, value);
       let subscription = await query.subscribe();
+      dispatch(addToLiveQuery(subscription));
       subscription.on('create', (msg) => {
         dispatch(addToConversaton(msg));
       });
@@ -91,6 +98,6 @@ export const addNewMsg = (newMsg:MsgType) =>{
 }
 
 
-export const { addToConversaton, setConversations, setPartycipats } = ChatSlice.actions
+export const { addToConversaton, clearLiveQuery, setConversations, addToLiveQuery, setPartycipats } = ChatSlice.actions
 
 export default ChatSlice.reducer
