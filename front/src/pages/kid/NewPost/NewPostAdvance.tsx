@@ -170,27 +170,6 @@ const NewPostAdvance = () =>{
           </Col>
         </Row>
         <Row className='form-padding  text-center'>
-          <Col className='margin' width={100}>Do you like to post a photo?</Col>
-          <Col width={100}>
-            <Button modifier="fund" onClick={()=>takePicture()}><FaCamera/></Button>
-          </Col>
-          {images.map((im, i)=>(
-            <Col><img src={im} width="200" alt="img"/></Col>
-          ))}
-        </Row>
-        <Row className='form-padding  text-center'>
-          <Col className='margin' width={100}>Do you like to record a note?</Col>
-          <Col width={100}>
-            {!recording && <Button modifier="fund" onClick={()=>startRecord()}><FaCircle/></Button>}
-            {recording && <Button modifier="fund" onClick={()=>stopRecord()}><FaStop/></Button>}
-          </Col>
-          {records.map(r=>(
-            <Col>
-              <Button modifier="fund" onClick={()=>playRecord(r)}><FaPlay/></Button>
-            </Col>
-          ))}
-        </Row>
-        <Row className='form-padding  text-center'>
           <Col width={100}>Is it related with you homework?</Col>
           <Col width={100}>
             <Select modifier="material"
@@ -201,9 +180,31 @@ const NewPostAdvance = () =>{
             </Select>
           </Col>
         </Row>
-        <Row className='form-padding  text-right'>
+        <Row className='form-padding  text-center'>
+          <Col className='margin' width={100}>
+            Do you like to post a photo?
+            <Button modifier="icon" onClick={()=>takePicture()}><FaCamera/></Button>
+          </Col>
+          {images.map((im, i)=>(
+            <Col><img src={im} width="200" alt="img"/></Col>
+          ))}
+        </Row>
+        <Row className='form-padding  text-center'>
+          <Col className='margin' width={100}>
+            Do you like to record a note?
+            {!recording && <Button modifier="icon" onClick={()=>startRecord()}><FaCircle/></Button>}
+            {recording && <Button modifier="icon" onClick={()=>stopRecord()}><FaStop/></Button>}
+          </Col>
+          {records.map((r,i)=>(
+            <Col>
+              <Button modifier="icon" onClick={()=>playRecord(r)}><FaPlay/></Button>
+              <p className="recorTitle">record {i+1}</p>
+            </Col>
+          ))}
+        </Row>
+        <Row className='form-padding  text-center'>
           <Col>
-            <Button modifier="" onClick={()=>addPost()}>SEND</Button>
+            <Button modifier="fund" onClick={()=>addPost()}>SEND</Button>
           </Col>
         </Row>
       </Card>

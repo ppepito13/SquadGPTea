@@ -8,9 +8,9 @@ import { isBrowser, isMobile, MobileView } from 'react-device-detect';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 const webChatOptions:WebChatConfig = {
-  integrationID: '89215e0e-dddc-4aa3-b3dd-be9601db49ee',
+  integrationID: '46fef89b-5750-4a68-ab59-ef1041728772',
   region: 'eu-de',
-  serviceInstanceID: '09ce35ba-45e7-4df5-9d04-227f68504b82',
+  serviceInstanceID: 'a6394b40-e604-4897-9e35-c6e4a0e35cad',
   // subscriptionID: 'only on enterprise plans',
   // Note that there is no onLoad property here. The WebChatContainer component will override it.
   // Use the onBeforeRender or onAfterRender prop instead.
