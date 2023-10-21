@@ -18,30 +18,33 @@ const Post = ({post, editable}:Props) =>{
       <Row>
         <Col size="auto">
           <Row>
-            {post.feelLike && post.feelLike>0 &&
-              <Col width={20}>
-                <img src={feelLikeList.find(fll=>fll.value===post.feelLike)?.img} height='64' width='64'/>
-              </Col>}
-            <Col size="auto">{post.comment}</Col>
-          </Row>
-          <Row>
-            <Col>
-              {post.emotions?.map((e,i)=><span className="notification" style={{'background-color':emotionsList.find(el=>el.name===e)?.color}}>{e}</span>)}
-            </Col>
-          </Row>
-          <Row>
-              {post.images?.map(e=><Col><img src={e} height='64' width='64'/></Col>)}
-          </Row>
-          <Row>
-            {editable &&
+            <Col width="15%">
+              <Row>
+              <img src={feelLikeList.find(fll=>fll.value===post.feelLike)?.img} height='64' width='64'/>
+              </Row>
+              <Row>
+              {editable &&
               <Col>
                 {!shared && <Button onCLick={()=>dispatch(sharePost(post, true))}>Share</Button>}
                 {shared && <Button onCLick={()=>dispatch(sharePost(post, false))}>Unshare</Button>}
               </Col>
             }
-            <Col>
-              <Moment date={post.createdAt} format="YYYY/MM/DD hh:mm"></Moment>
+              </Row>
             </Col>
+            <Col>
+              <Row>
+                {post.images?.map(e=><Col><img src={e} height='64' width='64'/></Col>)}
+              </Row>
+              <Row>
+              {post.comment}
+              </Row>
+              <Row>
+                {post.emotions?.map((e,i)=><span className="notification" style={{'background-color':emotionsList.find(el=>el.name===e)?.color}}>{e}</span>)}
+              </Row>
+              
+            </Col>
+            
+            <Col verticalAlign="bottom" width="15%"><Moment date={post.createdAt} format="YYYY/MM/DD"></Moment><br/><Moment date={post.createdAt} format="hh:mm"></Moment></Col>
           </Row>
         </Col>
       </Row>
