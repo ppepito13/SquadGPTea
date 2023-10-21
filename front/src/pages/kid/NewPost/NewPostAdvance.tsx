@@ -6,21 +6,26 @@ import { newPost } from '../../../redux/PostSlice';
 import store, { RootState } from '../../../redux/store';
 import { Camera, CameraResultType } from '@capacitor/camera';
 import { uploadFile } from '../../../redux/ApiSice';
-import { emotionsList, feelLikeList } from '../../common/const';
+import { feelLikeList } from '../../common/const';
 import { useSelector } from 'react-redux';
 import { HomeworkType } from '../../../types';
 import { requestHomeworks } from '../../../redux/HomeworkSlice';
+import emotionsList from '../../common/emocje.json';
+import emotionGrupsList from '../../common/grupyEmocji.json';
 
 const NewPostAdvance = () =>{
   const dispatch = store.dispatch;
   const navigate = useNavigate();
   const homeworks:HomeworkType[] = useSelector((root:RootState)=>root.homeworkSlice.homeworkStore.homeworks);
-  
+
   const [comment, setComment] = useState("");
   const [feelLike, setFeelLike] = useState(-1);
   const [emotions, setEmotions] = useState([] as string[]);
   const [images, setImages] = useState([] as string[]);
   const [homework, setHomework] = useState("");
+
+  const [selectGroupEmotion, setSelectGroupEmotion] = useState("");
+  const [selectEmotion, setSelectEmotion] = useState("")
 
   useEffect(()=>{
     dispatch(requestHomeworks())
@@ -75,18 +80,31 @@ const NewPostAdvance = () =>{
         </Row>
         <Row className='form-padding'>
           <Col width={100}>What are your emotions</Col>
-          {emotionsList.map((el,i)=>
-            <Col key={i}>
-              <div className={classNames({'emotionIcon':true, 'emotionIcon-active':emotions.includes(el.value)})} onClick={()=>{
-                if(emotions.includes(el.value)){
-                  setEmotions(emotions.filter(e=>e!==el.value))
-                }else{
-                  setEmotions([...emotions, el.value])
-                }
-              }}>
-                {el.label}
-              </div>
-            </Col>)}
+          <Col width={100}>
+            <Row className='form-padding'>
+              {emotions.map((e,i)=>
+                <Col key={i}>
+                  <span className="notification" style={{'background-color':emotionsList.find(el=>el.name===e)?.color}}>
+                    {e}
+                  </span>
+                </Col>)}
+            </Row>
+          </Col>
+          <Col width={100}>
+            <Select modifier="material"
+              value={selectGroupEmotion}
+              onChange={(event) => setSelectGroupEmotion(event.target.value)}>
+              <option value=""></option>
+              {emotionGrupsList.map(egl=><option value={egl}>{egl}</option>)}
+            </Select>
+            {selectGroupEmotion && <Select modifier="material"
+              value={selectEmotion}
+              onChange={(event) => setSelectEmotion(event.target.value)}>
+              <option value=""></option>
+              {emotionsList.filter(el=>el.group === selectGroupEmotion).map(el=><option value={el.name}>{el.name}</option>)}
+            </Select>}
+            {selectEmotion && <Button onClick={()=>{setEmotions([...emotions, selectEmotion])}}>add</Button>}
+          </Col>
         </Row>
         <Row className='form-padding'>
           <Col width={100}>Do you like to post a photo?</Col>

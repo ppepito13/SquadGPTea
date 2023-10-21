@@ -3,9 +3,10 @@ import { Button, Card, Col, Row } from "react-onsenui";
 import Moment from 'react-moment';
 import 'moment-timezone';
 import { PostType } from "../../types";
-import { emotionsList, feelLikeList } from "../common/const";
+import { feelLikeList } from "../common/const";
 import store from "../../redux/store";
 import { sharePost } from "../../redux/PostSlice";
+import emotionsList from '../common/emocje.json';
 
 const Post = ({post, editable}:Props) =>{
   const dispatch = store.dispatch;
@@ -25,7 +26,7 @@ const Post = ({post, editable}:Props) =>{
           </Row>
           <Row>
             <Col>
-              {post.emotions?.map(e=><span className="notification" style={{'background-color':emotionsList.find(el=>el.value===e)?.color}}>{emotionsList.find(el=>el.value===e)?.label}</span>)}
+              {post.emotions?.map((e,i)=><span className="notification" style={{'background-color':emotionsList.find(el=>el.name===e)?.color}}>{e}</span>)}
             </Col>
           </Row>
           <Row>
