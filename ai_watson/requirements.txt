@@ -1,0 +1,8 @@
+setuptools
+pydantic>=1.10.0
+aiohttp==3.9.0b0
+langchain
+ibm-watson-machine-learning>=1.0.327
+fastapi
+pymongo
+uvicorn
