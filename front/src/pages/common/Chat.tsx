@@ -7,13 +7,14 @@ import { addNewMsg } from '../../redux/ChatSlice';
 import store, { RootState } from '../../redux/store';
 import { MsgType, UserType } from '../../types';
 
-const Chat = () =>{
+const Chat = ({selectedKid}:Props) =>{
   const dispatch = store.dispatch;
   const [newMsg, setNewMsg] = useState("");
   const user:UserType = useSelector((root:RootState)=>root.userSlice.api.user);
   const conversations = useSelector((root:RootState)=>root.chatSlice.chat.conversations);
   const count = useSelector((root:RootState)=>root.chatSlice.chat.count);
-
+  const particianetId = user.therapist?.objectId || selectedKid?.objectId;
+  
   useEffect(() => {
     window.scrollTo(0, document.body.scrollHeight)
   }, [count])
@@ -21,12 +22,12 @@ const Chat = () =>{
   const newMessage:MsgType = {
     message: newMsg,
     sender:{"__type":"Pointer",className:"_User", objectId:user.objectId},
-    reciver:{"__type":"Pointer",className:"_User", objectId:user.therapist.objectId}
+    reciver:{"__type":"Pointer",className:"_User", objectId:particianetId}
   }
 
   const newMessage2:MsgType = {
     message: newMsg,
-    sender:{"__type":"Pointer",className:"_User", objectId:user.therapist.objectId},
+    sender:{"__type":"Pointer",className:"_User", objectId:particianetId},
     reciver:{"__type":"Pointer",className:"_User", objectId:user.objectId}
   }
 
@@ -36,9 +37,9 @@ const Chat = () =>{
         <div>
           <LazyList
             modifier="no-backgroud"
-            length={conversations[user.therapist.objectId]?.length || 0}
+            length={conversations[particianetId]?.length || 0}
             renderRow={(idx) =>{
-              const msg = conversations[user.therapist.objectId][idx];
+              const msg = conversations[particianetId][idx];
               const isSender = (msg.sender?.objectId || msg.get('sender').id)===user.objectId;
               const isReciver = (msg.reciver?.objectId || msg.get('reciver').id)===user.objectId;
               return(
@@ -65,6 +66,10 @@ const Chat = () =>{
       </div>
     </>
   )
+}
+
+interface Props{
+  selectedKid: UserType;
 }
 
 export default Chat;
