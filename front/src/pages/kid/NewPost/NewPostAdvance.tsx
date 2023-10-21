@@ -56,8 +56,8 @@ const NewPostAdvance = () =>{
   return(
     <section>
       <Card>
-        <Row className='form-padding'>
-          <Col width={100}>Select how you feel like</Col>
+        <Row className='form-padding text-center'>
+          <Col className='margin' width={100}>Select how you feel like</Col>
           {feelLikeList.map((fl,i)=>
             <Col key={i}>
               <div className={classNames({'feelLikeIcon':true})} onClick={()=>{setFeelLike(fl.value)}}>
@@ -67,21 +67,21 @@ const NewPostAdvance = () =>{
               </div>
             </Col>)}
         </Row>
-        <Row className='form-padding'>
-          <Col width={100}>Comment what happend</Col>
+        <Row className='form-padding text-center'>
+          <Col className='margin' width={100}>Comment what happend</Col>
           <Col>
             <textarea
               class="textarea"
               value={comment}
               rows="5"
-              placeholder="Start writing"
+              placeholder="Start writing..."
               onChange={(event) => { setComment(event.target.value)} }/>
           </Col>
         </Row>
-        <Row className='form-padding'>
+        <Row className='form-padding  text-center'>
           <Col width={100}>What are your emotions</Col>
           <Col width={100}>
-            <Row className='form-padding'>
+            <Row className='form-padding  text-center'>
               {emotions.map((e,i)=>
                 <Col key={i}>
                   <span className="notification" style={{'background-color':emotionsList.find(el=>el.name===e)?.color}}>
@@ -90,7 +90,7 @@ const NewPostAdvance = () =>{
                 </Col>)}
             </Row>
           </Col>
-          <Col width={100}>
+          <Col className='text-center'>
             <Select modifier="material"
               value={selectGroupEmotion}
               onChange={(event) => setSelectGroupEmotion(event.target.value)}>
@@ -106,8 +106,8 @@ const NewPostAdvance = () =>{
             {selectEmotion && <Button onClick={()=>{setEmotions([...emotions, selectEmotion])}}>add</Button>}
           </Col>
         </Row>
-        <Row className='form-padding'>
-          <Col width={100}>Do you like to post a photo?</Col>
+        <Row className='form-padding  text-center'>
+          <Col className='margin' width={100}>Do you like to post a photo?</Col>
           <Col width={100}>
             <Button modifier="fund" onClick={()=>takePicture()}>CAMERA</Button>
           </Col>
@@ -115,7 +115,7 @@ const NewPostAdvance = () =>{
             <Col><img src={im} width="200" alt="img"/></Col>
           ))}
         </Row>
-        <Row className='form-padding'>
+        <Row className='form-padding  text-center'>
           <Col width={100}>Is it related with you homework?</Col>
           <Col width={100}>
             <Select modifier="material"
@@ -126,9 +126,9 @@ const NewPostAdvance = () =>{
             </Select>
           </Col>
         </Row>
-        <Row className='form-padding'>
+        <Row className='form-padding  text-right'>
           <Col>
-            <Button modifier="" onClick={()=>addPost()}>send</Button>
+            <Button modifier="" onClick={()=>addPost()}>SEND</Button>
           </Col>
         </Row>
       </Card>

@@ -20,20 +20,20 @@ const NewPost = () =>{
   }
 
   return(
-      <Card>
-        <Input
+      <Card className='background_darkgrey'>
+        <div className='wall_input_section'>
+        <Input  className='wall-input'
             value={comment} float
             onChange={(event) => { setComment(event.target.value)} }
             modifier='material'
-            placeholder='Start writing' />
-            <Button modifier="" onClick={()=>addPost()}>send</Button>
+            placeholder='Start writing'/>
             <Button onClick={()=>navigate("/newpost")}>navigate</Button>
-{showModal}
-
+            <Button modifier="" onClick={()=>addPost()}>send</Button>
+            {showModal}
             <Modal showModal={showModal} setShowModal={setShowModal}>
               <div>Loading ...</div>
             </Modal>
-
+            </div>
       </Card>
   )
 }
