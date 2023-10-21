@@ -20,20 +20,22 @@ const NewPost = () =>{
   }
 
   return(
-      <Card>
-        <Input
+      <Card style={{ textAlign: 'center', background: '#4A5568'}}>
+        <div style={{margin: '10px'}}>
+        <Input  style={{margin: '10px', width: '60%'}}
             value={comment} float
             onChange={(event) => { setComment(event.target.value)} }
             modifier='material'
             placeholder='Start writing' />
-            <Button modifier="" onClick={()=>addPost()}>send</Button>
-            <Button onClick={()=>navigate("/newpost")}>navigate</Button>
+            <Button  style={{margin: '10px'}} onClick={()=>navigate("/newpost")}>DODAJ EMOCJE</Button>
+            <Button  style={{margin: '10px'}} modifier="" onClick={()=>addPost()}>WYŚLIJ</Button>
+
 {showModal}
 
             <Modal showModal={showModal} setShowModal={setShowModal}>
               <div>Loading ...</div>
             </Modal>
-
+            </div>
       </Card>
   )
 }
