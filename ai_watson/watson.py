@@ -18,9 +18,9 @@ class LlamaModel:
     def __init__(self):
         self.credentials = {
             "url":  "https://eu-de.ml.cloud.ibm.com",
-            "apikey": "XXX",
+            "apikey": os.getenv("APIKEY", ""),
         }
-        self.project_id = "XXX"
+        self.project_id = os.getenv("PROJECTID", "")
         self.model = self.create_model()
 
     def create_model(self):
