@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Button, Col, Input, Row} from 'react-onsenui';
+import { FaSave } from 'react-icons/fa';
+import { Button, Card, Col, Input, Row} from 'react-onsenui';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { newHomework } from '../../redux/HomeworkSlice';
@@ -20,31 +21,33 @@ const NewHomeWork = () =>{
 
   return(
     <section>
-    <Row>
-      <Col className="form-padding">
-        <Input
-          className='full-width'
-          value={title}
-          onChange={(event) => { setTitle(event.target.value)} }
-          modifier='underbar full-width'
-          placeholder='title' />
-      </Col>
-    </Row>
-    <Row>
-      <Col className="form-padding">
-        <textarea
-          class="textarea"
-          value={descr}
-          rows="5"
-          placeholder="descryption"
-          onChange={(event) => { setDescr(event.target.value)} }/>
-      </Col>
-    </Row>
-    <Row>
-      <Col>
-        <Button onClick={()=>addHomeWork()}>Save</Button>
-      </Col>
-    </Row>
+      <Card modifier="post nomargin">
+        <Row>
+          <Col className="form-padding">
+            <Input
+              className='full-width'
+              value={title}
+              onChange={(event) => { setTitle(event.target.value)} }
+              modifier='underbar full-width'
+              placeholder='title' />
+          </Col>
+        </Row>
+        <Row>
+          <Col className="form-padding">
+            <textarea
+              class="textarea"
+              value={descr}
+              rows="5"
+              placeholder="descryption"
+              onChange={(event) => { setDescr(event.target.value)} }/>
+          </Col>
+        </Row>
+        <Row>
+          <Col class='text-right'>
+            <Button modifier="fund" onClick={()=>addHomeWork()}><FaSave/>Save</Button>
+          </Col>
+        </Row>
+      </Card>
     </section>
   )
 }

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import './App.scss';
 import logo from './assets/logo.svg';
 import bg from './assets/bg.png';
-import { WebChatContainer, setEnableDebug, WebChatConfig } from '@ibm-watson/assistant-web-chat-react';
-import {BackButton, Icon, List, ListItem, Page, Splitter, SplitterContent, SplitterSide, Toolbar, ToolbarButton} from 'react-onsenui';
+import { WebChatContainer, setEnableDebug, WebChatConfig, WebChatInstance } from '@ibm-watson/assistant-web-chat-react';
+import {BackButton, Button, Icon, List, ListItem, Page, Splitter, SplitterContent, SplitterSide, Toolbar, ToolbarButton} from 'react-onsenui';
 import { isBrowser, isMobile, MobileView } from 'react-device-detect';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
@@ -14,10 +14,12 @@ const webChatOptions:WebChatConfig = {
   // subscriptionID: 'only on enterprise plans',
   // Note that there is no onLoad property here. The WebChatContainer component will override it.
   // Use the onBeforeRender or onAfterRender prop instead.
+  showLauncher:false
 };
 
 const Layout = ({menu, disableMenu, user}: React.PropsWithChildren<Props>) =>{
   const [openMenu, setOpenMenu] = useState(isBrowser);
+  const [instance, setInstance] = useState(null as WebChatInstance|null);
   const navigate = useNavigate();
   const location = useLocation();
   setEnableDebug(false);
@@ -25,13 +27,6 @@ const Layout = ({menu, disableMenu, user}: React.PropsWithChildren<Props>) =>{
   return (
     <Page renderToolbar={() =>
       <Toolbar modifier="menu">
-        <div className="left">
-          <MobileView>
-            <BackButton modifier="menu">
-                Back
-            </BackButton>
-          </MobileView>
-        </div>
         <div className="center">
           {user?.username}
         </div>
@@ -68,6 +63,8 @@ const Layout = ({menu, disableMenu, user}: React.PropsWithChildren<Props>) =>{
               </ListItem>
             )}
             />
+            <div className="watson-btn" onClick={()=>instance?.toggleOpen()}>WATSON assistant</div>
+            <WebChatContainer config={webChatOptions} onBeforeRender={(inst:WebChatInstance) => setInstance(inst)}/>
         </Page>
       </SplitterSide>
       <SplitterContent>
@@ -77,7 +74,6 @@ const Layout = ({menu, disableMenu, user}: React.PropsWithChildren<Props>) =>{
       </SplitterContent>
       </Splitter>
       <img src={bg} className='bg' alt=""/>
-      <WebChatContainer config={webChatOptions} />
     </Page>
 
   );

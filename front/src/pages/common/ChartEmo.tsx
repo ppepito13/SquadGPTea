@@ -38,7 +38,7 @@ const ChartEmo = () =>{
 
   const labels = useMemo(()=>{
     const labels = [];
-    for (let i=0; i<=24*1; i+=1){
+    for (let i=0; i<=7*24*1; i+=12){
       labels.push(new Date(new Date().getTime()-(60*60*1000)*(i-2)));
     }
     return labels;
@@ -100,15 +100,14 @@ const ChartEmo = () =>{
       datasets: [
         {
           label: 'Spektrum',
-          data: labels.map((x) =>{
+          data: labels.map((x,i) =>{
             let value = 0 as number | null;
             posts.forEach(p=>{
-              // if(Math.abs(moment(p.createdAt).diff(x)) < 30*60*1000){
-              //   console.log("1", p.createdAt, x)
-              // }
               value = Math.abs(moment(p.createdAt).diff(x)) < 30*60*1000 ? p.feelLike: null;
             })
-            return value;
+            // return value;
+            // return i%12 === 0 ? Math.floor(Math.random()*5+1): null;
+            return Math.floor(Math.random()*5+1);
           }),
           borderColor: 'rgb(132, 99, 255)',
           backgroundColor: 'rgba(132, 99, 255, 0.5)',
@@ -125,7 +124,7 @@ const ChartEmo = () =>{
   return(
     <section>
       <Card modifier="post">
-        <div style={{height:"200px"}}>
+        <div style={{height:"400px"}}>
           <Line options={options} data={data} />
         </div>
       </Card>

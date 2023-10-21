@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Button, List, ListItem,} from 'react-onsenui';
+import { FaPlus } from 'react-icons/fa';
+import { Button, Fab, List, ListItem,} from 'react-onsenui';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { requestHomeworks } from '../../redux/HomeworkSlice';
 import { requestPostsById } from '../../redux/PostSlice';
 import store, { RootState } from '../../redux/store';
-import { HomeworkType, PostType } from '../../types';
+import { HomeworkType, PostType, UserType } from '../../types';
 import Post from '../kid/Post';
 
 const HomeWork = () =>{
@@ -16,9 +17,11 @@ const HomeWork = () =>{
 
   const homeworks:HomeworkType[] = useSelector((root:RootState)=>root.homeworkSlice.homeworkStore.homeworks);
   const posts:PostType[] = useSelector((root:RootState)=>root.postSlice.postStore.posts);
+  const user:UserType = useSelector((root:RootState)=>root.userSlice.api.user);
 
   useEffect(()=>{
     dispatch(requestHomeworks(selectedKid)).then((res:any)=>{
+      console.log(res.results)
       dispatch(requestPostsById(res.results.map(h=>h.objectId)))
     })
   },[])
@@ -26,21 +29,22 @@ const HomeWork = () =>{
   return(
     <section>
       <List
+        modifier="no-backgroud border"
         dataSource={homeworks||[]}
         renderRow={(row, idx) => {
           const postsForHomework = posts.filter(p=>p.homework?.objectId===row.objectId)
           return(
             <ListItem expanded={idx === expandedItem } expandable>
-              <div>{row.title} {postsForHomework.length>0 && <span className="notification">{postsForHomework.length}</span>}</div>
+              <div className="list-homework-title">{row.title} {postsForHomework.length>0 && <span className="notification">{postsForHomework.length}</span>}</div>
               <div className="expandable-content">
-                {row.descr}
+                <p className="list-descr">{row.descr}</p>
                 {postsForHomework.map(pfh=><Post post={pfh} editable={false}/>)}
               </div>
             </ListItem>
         )}}
       />
 
-    <Button onClick={()=>navigate("/newhomework")}>Add new homework</Button>
+      {user?.type==='terap' && <Fab onClick={()=>navigate("/newhomework")}><FaPlus/>Add new homework</Fab>}
 
     </section>
   )

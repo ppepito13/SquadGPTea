@@ -75,6 +75,10 @@ h1 {
   background-color: $bg-transparent !important;
 }
 
+.list--border{
+  border: black solid 1px !important;
+}
+
 .list--menu{
   background-color: $bg-dark !important;
 }
@@ -99,6 +103,10 @@ h1 {
   border-radius: 20px !important;
 }
 
+.button--float-right{
+  float: right;
+}
+
 .button--icon{
   background-color: $bg-dark !important;
   border-radius: 23px !important;
@@ -113,6 +121,10 @@ h1 {
 .card--post{
   width: 100%;
   background-color: $bg-card !important;
+}
+
+.card--nomargin{
+  margin: 0px !important;
 }
 
 .card--modal{
@@ -154,7 +166,7 @@ textarea{
 }
 
 section{
-  margin-top: 50px;
+  margin-top: 30px;
 }
 
 .full-width{
@@ -179,7 +191,7 @@ section{
 
 .wall-input{
   margin: 10px;
-  width: 60%;
+  width: 90%;
 }
 
 .background_darkgrey{
@@ -244,6 +256,12 @@ section{
   text-indent: 20px;
 }
 
+.list-descr{
+  text-align: justify;
+  font-size: 14px;
+  text-indent: 20px;
+}
+
 .switch__toggle{
   background-color: $bg-dark !important;
 }
@@ -256,4 +274,29 @@ section{
 .recorTitle{
   font-size: 12px;
   margin: 0px;
+}
+
+.list-homework-title{
+  font-weight: bold;
+}
+
+.watson-btn{
+  background-color: #fff;
+  padding: 15px;
+  font-weight: bold;
+  bottom: 30px;
+  position: absolute;
+  width: 100%;
+}
+
+.text-input--chat{
+  width: 100% !important;
+}
+
+.fab{
+  background-color: $bg-dark !important;
+  color: $bg-light !important;
+  right: 20px !important;
+  position: fixed !important;
+  bottom: 20px !important;
 }

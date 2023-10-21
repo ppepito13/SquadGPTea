@@ -202,7 +202,7 @@ const NewPostAdvance = () =>{
             </Col>
           ))}
         </Row>
-        <Row className='form-padding  text-center'>
+        <Row className='form-padding  text-right'>
           <Col>
             <Button modifier="fund" onClick={()=>addPost()}>SEND</Button>
           </Col>

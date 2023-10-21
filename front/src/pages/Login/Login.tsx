@@ -16,7 +16,7 @@ const Test = () =>{
         <Col className="text-center"><Button modifier='login' onClick={()=>dispatch(login("Grzegorz Brzęczyszczykiewicz", "kid2"))}>LOGIN kid2</Button></Col>
       </Row>
       <Row>
-        <Col className="text-center"><Button modifier='login' onClick={()=>dispatch(login("terap1", "terap1"))}>LOGIN therapist</Button></Col>
+        <Col className="text-center"><Button modifier='login' onClick={()=>dispatch(login("Mściwoj Północny", "terap1"))}>LOGIN therapist</Button></Col>
       </Row>
     </section>
   );

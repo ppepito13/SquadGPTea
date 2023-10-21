@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
+import { FaRegPaperPlane } from 'react-icons/fa';
 import { Button, Card, Input, LazyList, ListItem } from 'react-onsenui';
 import { useSelector } from 'react-redux';
 import { addNewMsg } from '../../redux/ChatSlice';
@@ -14,7 +15,7 @@ const Chat = ({selectedKid}:Props) =>{
   const conversations = useSelector((root:RootState)=>root.chatSlice.chat.conversations);
   const count = useSelector((root:RootState)=>root.chatSlice.chat.count);
   const particianetId = user.therapist?.objectId || selectedKid?.objectId;
-  
+
   useEffect(() => {
     window.scrollTo(0, document.body.scrollHeight)
   }, [count])
@@ -57,12 +58,11 @@ const Chat = ({selectedKid}:Props) =>{
       </section>
       <div className='chat-send'>
         <Input
+          style={{width:"80%"}}
           value={newMsg} float
           onChange={(event) => { setNewMsg(event.target.value) } }
-          modifier='material'
-          placeholder='Username' />
-        <Button onClick={()=>{dispatch(addNewMsg(newMessage))}}>1</Button>
-        <Button onClick={()=>{dispatch(addNewMsg(newMessage2))}}>2</Button>
+          modifier='material chat' />
+        <Button modifier='fund float-right' float={true} onClick={()=>{dispatch(addNewMsg(newMessage))}}><FaRegPaperPlane/></Button>
       </div>
     </>
   )
