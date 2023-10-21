@@ -20,18 +20,16 @@ const NewPost = () =>{
   }
 
   return(
-      <Card style={{ textAlign: 'center', background: '#4A5568'}}>
-        <div style={{margin: '10px'}}>
-        <Input  style={{margin: '10px', width: '60%'}}
+      <Card className='background_darkgrey'>
+        <div className='wall_input_section'>
+        <Input  className='wall-input'
             value={comment} float
             onChange={(event) => { setComment(event.target.value)} }
             modifier='material'
-            placeholder='Start writing' />
-            <Button  style={{margin: '10px'}} onClick={()=>navigate("/newpost")}>DODAJ EMOCJE</Button>
-            <Button  style={{margin: '10px'}} modifier="" onClick={()=>addPost()}>WYŚLIJ</Button>
-
-{showModal}
-
+            placeholder='Start writing'/>
+            <Button onClick={()=>navigate("/newpost")}>navigate</Button>
+            <Button modifier="" onClick={()=>addPost()}>send</Button>
+            {showModal}
             <Modal showModal={showModal} setShowModal={setShowModal}>
               <div>Loading ...</div>
             </Modal>
