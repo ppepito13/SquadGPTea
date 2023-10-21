@@ -5,11 +5,11 @@ import hepiIcon from '../../assets/feel-like/4_hepi.png';
 import veryHepiIcon from '../../assets/feel-like/5_very_hepi.png';
 
 export const feelLikeList = [
-  {img:verySadIcon, value:1},
-  {img:sadIcon, value:2},
-  {img:neutralIcon, value:3},
-  {img:hepiIcon, value:4},
-  {img:veryHepiIcon, value:5}
+  {img:verySadIcon, desc:"Very bad", value:1},
+  {img:sadIcon, desc:"Bad", value:2},
+  {img:neutralIcon, desc:"Neutral", value:3},
+  {img:hepiIcon, desc:"Good", value:4},
+  {img:veryHepiIcon, desc:"Very good", value:5}
 ]
 
 export const emotionsList = [
