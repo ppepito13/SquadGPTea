@@ -12,6 +12,7 @@ import { HomeworkType } from '../../../types';
 import { requestHomeworks } from '../../../redux/HomeworkSlice';
 import emotionsList from '../../common/emocje.json';
 import emotionGrupsList from '../../common/grupyEmocji.json';
+import { FaRegTimesCircle } from "react-icons/fa";
 
 const NewPostAdvance = () =>{
   const dispatch = store.dispatch;
@@ -91,6 +92,7 @@ const NewPostAdvance = () =>{
                 <Col key={i}>
                   <span className="notification" style={{'background-color':emotionsList.find(el=>el.name===e)?.color}} onClick={()=>removeEmotion(i)}>
                     {e}
+                  <FaRegTimesCircle />
                   </span>
                 </Col>)}
             </Row>
