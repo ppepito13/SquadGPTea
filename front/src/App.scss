@@ -2,7 +2,7 @@ $bg-transparent: #fff0;
 $bg-light: #fff;
 $bg-dark: #007ac9;
 $btn-red: #ec4371;
-$bg-card: #ccc3;
+$bg-card: #eee8;
 
 
 h1 {
@@ -70,6 +70,10 @@ h1 {
   color: $bg-light;
 }
 
+.list--no-backgroud{
+  background-color: $bg-transparent !important;
+}
+
 .list--menu{
   background-color: $bg-dark !important;
 }
@@ -77,6 +81,10 @@ h1 {
 .list-item--not-active{
   background-color: $bg-dark;
   color: $bg-light !important;
+}
+
+.list-item--nodivider{
+  padding: 0 !important;
 }
 
 .list-item--active{

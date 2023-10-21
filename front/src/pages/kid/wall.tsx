@@ -24,6 +24,7 @@ const Wall = ({selectedKid}:Props) =>{
 
       <div style={{height: 100}}>
         <LazyList
+          modifier="no-backgroud"
           length={posts?.length || 0}
           renderRow={(index) =>
             <ListItem key={index} modifier="nodivider">
