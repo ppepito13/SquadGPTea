@@ -2,7 +2,6 @@ import { GenericResponse, RecordingData, VoiceRecorder } from 'capacitor-voice-r
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-onsenui';
 import { watsonSpeach2Text } from '../../api';
-import audio from '../../assets/audio-file.flac';
 
 const VoiceTest = () =>{
   const [recording, setRecording] = useState(false);

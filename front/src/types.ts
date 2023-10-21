@@ -3,6 +3,7 @@ export interface PostType{
   feelLike: number;
   emotions: string[];
   images: string[];
+  records: string[];
   homework: any;
   owner?: any;
   ACL?:any;

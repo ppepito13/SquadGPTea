@@ -35,10 +35,10 @@ export const requestExample = ()=>{
   }
 }
 
-export const uploadFile = (name:string, file:any)=>{
+export const uploadFile = (name:string, file:any, extencion:string)=>{
   const config = {
     headers:{
-      "Content-Type": "image/png "
+      "Content-Type": "image/"+extencion
     }
   };
   return (dispatch:Redux.Dispatch) =>{
