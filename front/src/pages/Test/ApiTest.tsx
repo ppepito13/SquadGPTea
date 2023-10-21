@@ -15,7 +15,7 @@ const ApiTest = () =>{
     const createLiveQuery = async () =>{
       Parse.initialize("collabothon");
       Parse.serverURL = 'https://polarny.it/parse'
-      let query = new Parse.Query('PushMsg');
+      let query = new Parse.Query('Msg');
       // query.equalTo('name', 'Mengyan');
       let subscription = await query.subscribe();
       subscription.on('create', (pushMsg) => {

@@ -28,3 +28,9 @@ export interface UserType{
   objectId: string;
   updatedAt?: Date;
 }
+
+export interface MsgType{
+  message: string;
+  sender: any;
+  reciver: any;
+}

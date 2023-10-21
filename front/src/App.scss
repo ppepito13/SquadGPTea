@@ -182,3 +182,40 @@ section{
   gap: 10px;
   justify-content: center;
 }
+
+.rotate{
+  transform: rotate(180deg);
+}
+
+.chat-send{
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  padding: 10px;
+  background-color: $bg-light;
+}
+
+.chat-section{
+  margin-bottom: 70px;
+}
+
+.card--chatMsg-sender{
+  margin-left: 20% !important;
+  background-color: $bg-dark !important;
+  color: $bg-light;
+}
+
+.card--chatMsg-reciver{
+  margin-right: 20% !important;
+}
+
+.chat-msg{
+  margin-top: 0px;
+}
+
+.chat-date{
+  font-size: 10px;
+  text-align: right;
+  margin-bottom: -10px;
+}

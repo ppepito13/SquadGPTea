@@ -17,9 +17,12 @@ import HomeWork from './pages/common/HomeWork';
 import NewHomeWork from './pages/terapist/NewHomeWork';
 import SelectKid from './pages/terapist/SelectKid';
 import ChartEmo from './pages/common/ChartEmo';
+import Chat from './pages/common/Chat';
+import { startLiveQuery } from './redux/ChatSlice';
+import { UserType } from './types';
 const App = () =>{
   const dispatch = store.dispatch;
-  const user = useSelector((root:RootState)=>root.userSlice.api.user);
+  const user:UserType = useSelector((root:RootState)=>root.userSlice.api.user);
   const selectedKid = useSelector((root:RootState)=>root.statusSlice.status.selectedKid);
 
   let disableMenu = !user;
@@ -29,6 +32,12 @@ const App = () =>{
     .then(() => AndroidFullScreen.immersiveMode())
     .catch(console.warn);
   },[])
+
+  useEffect(()=>{
+    if(user?.type === 'kid'){
+      dispatch(startLiveQuery(user.objectId, [user.therapist.objectId]));
+    }
+  }, [])
 
   if(user){
     dispatch(validate()).catch(err=>{
@@ -44,6 +53,7 @@ const App = () =>{
         {label:"wall", href:"/"},
         {label:"homework", href:"/homework"},
         {label:"chart", href:"/chart"},
+        {label:"chat", href:"/chat"},
         {label:"logout", href:"/logout"}
       ]
       return (
@@ -52,6 +62,7 @@ const App = () =>{
           <Route path="newpost" element={<NewPostAdvance />} />
           <Route path="homework" element={<HomeWork />} />
           <Route path="chart" element={<ChartEmo />} />
+          <Route path="chat" element={<Chat />} />
           <Route path="logout" element={<Logout />} />
           <Route path="*" element={<Wall />} />
         </Route>

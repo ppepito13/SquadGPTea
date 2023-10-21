@@ -14,6 +14,7 @@ export const UserSlice = createSlice({
     setUser: ({api}, {payload}) => {
       api.user = payload;
       localStorage.setItem("user", JSON.stringify(payload));
+      window.location.reload();
     },
   },
 })
