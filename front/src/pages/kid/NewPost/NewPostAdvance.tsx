@@ -55,7 +55,7 @@ const NewPostAdvance = () =>{
 
   return(
     <section>
-      <Card>
+      <Card  modifier="post">
         <Row className='form-padding text-center'>
           <Col className='margin' width={100}>Select how you feel like</Col>
           {feelLikeList.map((fl,i)=>
@@ -81,7 +81,7 @@ const NewPostAdvance = () =>{
               onChange={(event) => { setComment(event.target.value)} }/>
           </Col>
         </Row>
-        <Row className='form-padding  text-center'>
+        <Row className='newpost-section'>
           <Col width={100}>What are your emotions</Col>
           <Col width={100}>
             <Row className='form-padding  text-center'>
@@ -109,7 +109,7 @@ const NewPostAdvance = () =>{
             {selectEmotion && <Button onClick={()=>{setEmotions([...emotions, selectEmotion])}}>add</Button>}
           </Col>
         </Row>
-        <Row className='form-padding  text-center'>
+        <Row className='newpost-section'>
           <Col className='margin' width={100}>Do you like to post a photo?</Col>
           <Col width={100}>
             <Button modifier="fund" onClick={()=>takePicture()}>CAMERA</Button>
@@ -118,7 +118,7 @@ const NewPostAdvance = () =>{
             <Col><img src={im} width="200" alt="img"/></Col>
           ))}
         </Row>
-        <Row className='form-padding  text-center'>
+        <Row className='newpost-section'>
           <Col width={100}>Is it related with you homework?</Col>
           <Col width={100}>
             <Select modifier="material"
