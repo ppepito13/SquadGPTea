@@ -53,6 +53,11 @@ const NewPostAdvance = () =>{
     })
   };
 
+  const removeEmotion = (id:number) =>{
+    emotions.splice(id, 1);
+    setEmotions([...emotions]);
+  }
+
   return(
     <section>
       <Card>
@@ -84,7 +89,7 @@ const NewPostAdvance = () =>{
             <Row className='form-padding  text-center'>
               {emotions.map((e,i)=>
                 <Col key={i}>
-                  <span className="notification" style={{'background-color':emotionsList.find(el=>el.name===e)?.color}}>
+                  <span className="notification" style={{'background-color':emotionsList.find(el=>el.name===e)?.color}} onClick={()=>removeEmotion(i)}>
                     {e}
                   </span>
                 </Col>)}
