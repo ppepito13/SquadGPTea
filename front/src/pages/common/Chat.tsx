@@ -26,12 +26,6 @@ const Chat = ({selectedKid}:Props) =>{
     reciver:{"__type":"Pointer",className:"_User", objectId:particianetId}
   }
 
-  const newMessage2:MsgType = {
-    message: newMsg,
-    sender:{"__type":"Pointer",className:"_User", objectId:particianetId},
-    reciver:{"__type":"Pointer",className:"_User", objectId:user.objectId}
-  }
-
   return(
     <>
       <section className='rotate chat-section'>

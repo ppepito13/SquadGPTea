@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { FaCommentDots, FaSave } from 'react-icons/fa';
-import { Button, Card, Input, Navigator, Page } from 'react-onsenui';
-import { Link, useNavigate } from 'react-router-dom';
+import { Button, Card, Input } from 'react-onsenui';
+import { useNavigate } from 'react-router-dom';
 import Modal from '../../../common/atoms/Modal';
 import { newPost } from '../../../redux/PostSlice';
 import store from '../../../redux/store';
-import ApiTest from '../../Test/ApiTest';
 
 const NewPost = () =>{
   const dispatch = store.dispatch;

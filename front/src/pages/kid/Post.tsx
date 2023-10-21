@@ -1,13 +1,12 @@
-import react from "react";
+import React from "react";
 import { Button, Card, Col, Row, Switch } from "react-onsenui";
-import Moment from 'react-moment';
 import 'moment-timezone';
 import { PostType } from "../../types";
 import { feelLikeList } from "../common/const";
 import store from "../../redux/store";
 import { sharePost } from "../../redux/PostSlice";
 import emotionsList from '../common/emocje.json';
-import { FaPlay, FaShare } from "react-icons/fa";
+import { FaPlay } from "react-icons/fa";
 import moment from "moment";
 
 const Post = ({post, editable}:Props) =>{

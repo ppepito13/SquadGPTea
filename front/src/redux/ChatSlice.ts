@@ -4,6 +4,7 @@ import api from '../api';
 import Parse from 'parse';
 import store from './store';
 import { MsgType } from '../types';
+import ons from 'onsenui';
 
 export const ChatSlice = createSlice({
   name: 'userData',
@@ -34,6 +35,9 @@ export const ChatSlice = createSlice({
         if(payload.attributes.sender.id === p){
           chat.conversations[p].unshift(payload);
           chat.count = chat.count +1;
+          ons.notification.toast(payload.get("message"), {
+            timeout: 2000
+          });
         }else if(payload.attributes.reciver.id === p){
           chat.conversations[p].unshift(payload);
           chat.count = chat.count +1;

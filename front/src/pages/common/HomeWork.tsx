@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { FaPlus } from 'react-icons/fa';
-import { Button, Fab, List, ListItem,} from 'react-onsenui';
+import { Fab, List, ListItem,} from 'react-onsenui';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { requestHomeworks } from '../../redux/HomeworkSlice';
@@ -12,8 +12,7 @@ import Post from '../kid/Post';
 const HomeWork = () =>{
   const dispatch = store.dispatch;
   const navigate = useNavigate();
-  const selectedKid = useSelector((root:RootState)=>root.statusSlice.status.selectedKid)
-  const [expandedItem, setExpandedItem] = useState();
+  const selectedKid = useSelector((root:RootState)=>root.statusSlice.status.selectedKid);
 
   const homeworks:HomeworkType[] = useSelector((root:RootState)=>root.homeworkSlice.homeworkStore.homeworks);
   const posts:PostType[] = useSelector((root:RootState)=>root.postSlice.postStore.posts);
@@ -34,7 +33,7 @@ const HomeWork = () =>{
         renderRow={(row, idx) => {
           const postsForHomework = posts.filter(p=>p.homework?.objectId===row.objectId)
           return(
-            <ListItem expanded={idx === expandedItem } expandable>
+            <ListItem expandable>
               <div className="list-homework-title">{row.title} {postsForHomework.length>0 && <span className="notification">{postsForHomework.length}</span>}</div>
               <div className="expandable-content">
                 <p className="list-descr">{row.descr}</p>
@@ -50,14 +49,5 @@ const HomeWork = () =>{
   )
 }
 
-// <List
-//   dataSource={homeworks||[]}
-//   renderRow={(row, idx) => (
-//     <ListItem expanded={idx === expandedItem } expandable>
-//       <div>{row.title}</div>
-//       <div className="expandable-content">{row.descr}</div>
-//     </ListItem>
-//   )}
-// />
 
 export default HomeWork;

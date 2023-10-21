@@ -3,7 +3,7 @@ import './App.scss';
 import logo from './assets/logo.svg';
 import bg from './assets/bg.png';
 import { WebChatContainer, setEnableDebug, WebChatConfig, WebChatInstance } from '@ibm-watson/assistant-web-chat-react';
-import {BackButton, Button, Icon, List, ListItem, Page, Splitter, SplitterContent, SplitterSide, Toolbar, ToolbarButton} from 'react-onsenui';
+import { Icon, List, ListItem, Page, Splitter, SplitterContent, SplitterSide, Toolbar, ToolbarButton} from 'react-onsenui';
 import { isBrowser, isMobile, MobileView } from 'react-device-detect';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
@@ -74,6 +74,7 @@ const Layout = ({menu, disableMenu, user}: React.PropsWithChildren<Props>) =>{
       </SplitterContent>
       </Splitter>
       <img src={bg} className='bg' alt=""/>
+      <div>dupa</div>
     </Page>
 
   );
