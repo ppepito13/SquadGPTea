@@ -61,8 +61,11 @@ const NewPostAdvance = () =>{
           {feelLikeList.map((fl,i)=>
             <Col key={i}>
               <div className={classNames({'feelLikeIcon':true})} onClick={()=>{setFeelLike(fl.value)}}>
-                <div className='feelLiceIcon-container'>
+                <div className='feelLiceIcon-container emotionIcon-active'>
+                  <Col>
                   <img src={fl.img} className={classNames({'feelLikeIcon-icon':true, 'feelLikeIcon-active':fl.value===feelLike})}/>
+                  <div>{fl.desc}</div>
+                  </Col>
                 </div>
               </div>
             </Col>)}
