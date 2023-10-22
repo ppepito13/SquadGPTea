@@ -47,11 +47,11 @@ const NewPostAdvance = () =>{
           })
         }
       })
-    }catch((ee)=>{
+    }catch(e){
       ons.notification.toast("NO privilages", {
         timeout: 2000
       });
-    })
+    }
   },[])
 
   const addPost = () =>{
@@ -76,11 +76,11 @@ const NewPostAdvance = () =>{
       }).catch(err=>{
           setImages([err]);
       })
-    }catch(ee=>{
+    }catch(ee){
       ons.notification.toast("NO privilages", {
         timeout: 2000
       });
-    })
+    }
   };
 
   const startRecord = () =>{
@@ -88,11 +88,11 @@ const NewPostAdvance = () =>{
       VoiceRecorder.startRecording()
         .then((result: GenericResponse) => setRecording(true))
         .catch(error => console.log(error))
-    }catch(ee=>{
+    }catch(ee){
       ons.notification.toast("NO privilages", {
         timeout: 2000
       });
-    })
+    }
   }
 
   const stopRecord = () =>{
