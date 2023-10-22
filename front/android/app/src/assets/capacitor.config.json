@@ -1,6 +1,6 @@
 {
 	"appId": "io.ionic.collabothon",
-	"appName": "collabothon",
+	"appName": "Słonikowy świat",
 	"bundledWebRuntime": false,
 	"npmClient": "npm",
 	"webDir": "build",
