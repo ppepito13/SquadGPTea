@@ -54,7 +54,7 @@ const Post = ({post, editable}:Props) =>{
           <Row>
             {post.images?.map(e=><Col><img src={e} height='64' width='64'/></Col>)}
 
-            {post.records?.map((e,i)=>
+            {post.records?.map((r,i)=>
               <Col className="text-center">
                 <Button modifier="icon" onClick={()=>playRecord(r)}><FaPlay/></Button>
                 <p className="recorTitle">record {i+1}</p>
