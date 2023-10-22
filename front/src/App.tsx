@@ -55,11 +55,11 @@ const App = () =>{
   const getRoutes = (userType:string) =>{
     if(user && user.type === "kid"){
       const menu = [
-        {label:"wall", href:"/"},
-        {label:"homework", href:"/homework"},
-        {label:"chart", href:"/chart"},
-        {label:"chat", href:"/chat"},
-        {label:"logout", href:"/logout"}
+        {label:"Wall", href:"/"},
+        {label:"Homework", href:"/homework"},
+        {label:"Emotion chart", href:"/chart"},
+        {label:"Chat", href:"/chat"},
+        {label:"Logout", href:"/logout"}
       ]
       return (
         <Route path="/" element={<Layout menu={menu} disableMenu={disableMenu} user={user}/>}>
@@ -75,24 +75,28 @@ const App = () =>{
     }else if(user && user.type === "parent"){
       const menu = [
         {label:"wall", href:"/"},
-        {label:"logout", href:"/logout"}
+        {label:"Homework", href:"/homework"},
+        {label:"Chat", href:"/chat"},
+        {label:"Logout", href:"/logout"}
       ]
       return (
         <Route path="/" element={<Layout menu={menu} disableMenu={disableMenu}/>}>
-          <Route index element={<Wall />} />
+          <Route index element={<HomeWork />} />
+          <Route path="homework" element={<HomeWork />} />
+          <Route path="chat" element={<Chat />} />
           <Route path="logout" element={<Logout />} />
-          <Route path="*" element={<Wall />} />
+          <Route path="*" element={<HomeWork />} />
         </Route>
       )
     }else if(user && user.type === "terap"){
       if(selectedKid){
         const menu = [
-          {label:"select kid", href:"/"},
-          {label:"wall", href:"/wall"},
-          {label:"homework", href:"/homework"},
-          {label:"chart", href:"/chart"},
-          {label:"chat", href:"/chat"},
-          {label:"logout", href:"/logout"}
+          {label:"Select patient", href:"/"},
+          {label:"Patient wall", href:"/wall"},
+          {label:"Patient homework's", href:"/homework"},
+          {label:"Patient emotion chart", href:"/chart"},
+          {label:"Patient chat", href:"/chat"},
+          {label:"Logout", href:"/logout"}
         ]
         return (
           <Route path="/" element={<Layout menu={menu} disableMenu={disableMenu} user={selectedKid}/>}>
