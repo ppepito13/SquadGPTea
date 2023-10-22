@@ -32,7 +32,7 @@ async def classify_emotions(post_message: dict):
         response = new_model.run_model(statement_to_classify=post_message["filled_excercise"])
         # collection.insert_one(data_dict)
         logger.debug(response)
-        return {"message": "Emotion data added successfully"}
+        return {"message": response}
     except Exception as e:
         raise HTTPException(status_code=500, detail="Internal server error")
 
