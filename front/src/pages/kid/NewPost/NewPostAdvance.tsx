@@ -12,7 +12,7 @@ import { HomeworkType } from '../../../types';
 import { requestHomeworks } from '../../../redux/HomeworkSlice';
 import emotionsList from '../../common/emocje.json';
 import emotionGrupsList from '../../common/grupyEmocji.json';
-import { FaCamera, FaCircle, FaPlay, FaRegTimesCircle, FaStop } from "react-icons/fa";
+import { FaCamera, FaCircle, FaPlay, FaRegTimesCircle, FaRegTrashAlt, FaSave, FaStop } from "react-icons/fa";
 import { GenericResponse, RecordingData, VoiceRecorder } from 'capacitor-voice-recorder';
 
 const NewPostAdvance = () =>{
@@ -95,7 +95,8 @@ const NewPostAdvance = () =>{
         const file = dataURLtoFile(`data:${result!.value.mimeType};base64,${result!.value.recordDataBase64}`, 'test.webm');
         // const file = new Audio(`data:${result!.value.mimeType};base64,${result!.value.recordDataBase64}`)
         dispatch(uploadFile("record.webm", file, "webm")).then((res)=>{
-          setRecords([...records, res.url]);
+          // setRecords([...records, res.url]);
+          setRecords([...records, `data:${result!.value.mimeType};base64,${result!.value.recordDataBase64}`]);
         }).catch(err=>{
             setRecords([err]);
         })
@@ -107,6 +108,7 @@ const NewPostAdvance = () =>{
     console.log(r)
     // const audioRef = new Audio(`data:${record!.value.mimeType};base64,${record!.value.recordDataBase64}`)
     const audioRef = new Audio(r);
+    console.log(audioRef)
     audioRef.oncanplaythrough = () => audioRef.play()
     audioRef.load()
   }
@@ -203,8 +205,11 @@ const NewPostAdvance = () =>{
           ))}
         </Row>
         <Row className='form-padding  text-right'>
-          <Col>
-            <Button modifier="fund" onClick={()=>addPost()}>SEND</Button>
+          <Col className='text-center'>
+            <Button modifier="fund" onClick={()=>addPost()}><FaRegTrashAlt/>Cancel</Button>
+          </Col>
+          <Col className='text-center'>
+            <Button modifier="fund" onClick={()=>addPost()}><FaSave/>SEND</Button>
           </Col>
         </Row>
       </Card>
