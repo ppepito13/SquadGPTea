@@ -107,6 +107,7 @@ const App = () =>{
             <Route path="wall" element={<Wall selectedKid={selectedKid}/>} />
             <Route path="homework" element={<HomeWork selectedKid={selectedKid} />} />
             <Route path="newhomework" element={<NewHomeWork />} />
+            <Route path="chart" element={<ChartEmo />} />
             <Route path="patientchat" element={<Chat selectedKid={selectedKid}/>} />
             <Route path="parentchat" element={<Chat slectedParent={selectedKid.parent?.objectId}/>} />
             <Route path="logout" element={<Logout />} />

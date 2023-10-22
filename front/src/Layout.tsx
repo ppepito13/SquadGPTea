@@ -74,7 +74,6 @@ const Layout = ({menu, disableMenu, user}: React.PropsWithChildren<Props>) =>{
       </SplitterContent>
       </Splitter>
       <img src={bg} className='bg' alt=""/>
-      <div>dupa</div>
     </Page>
 
   );

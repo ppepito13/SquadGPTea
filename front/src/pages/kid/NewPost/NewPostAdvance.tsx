@@ -56,24 +56,36 @@ const NewPostAdvance = () =>{
   }
 
   const takePicture = async () => {
-    const image = await Camera.getPhoto({
-      quality: 90,
-      allowEditing: true,
-      resultType: CameraResultType.Uri
-    });
-    let blob = await fetch(image.webPath!).then(r => r.blob());
-    var file = new File([blob], "name");
-    dispatch(uploadFile("test1", file, "png")).then((res)=>{
-      setImages([...images, res.url]);
-    }).catch(err=>{
-        setImages([err]);
+    try{
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: true,
+        resultType: CameraResultType.Uri
+      });
+      let blob = await fetch(image.webPath!).then(r => r.blob());
+      var file = new File([blob], "name");
+      dispatch(uploadFile("test1", file, "png")).then((res)=>{
+        setImages([...images, res.url]);
+      }).catch(err=>{
+          setImages([err]);
+      })
+    }catch(ee=>{
+      ons.notification.toast("NO privilages", {
+        timeout: 2000
+      });
     })
   };
 
   const startRecord = () =>{
-    VoiceRecorder.startRecording()
-      .then((result: GenericResponse) => setRecording(true))
-      .catch(error => console.log(error))
+    try{
+      VoiceRecorder.startRecording()
+        .then((result: GenericResponse) => setRecording(true))
+        .catch(error => console.log(error))
+    }catch(ee=>{
+      ons.notification.toast("NO privilages", {
+        timeout: 2000
+      });
+    })
   }
 
   const stopRecord = () =>{
