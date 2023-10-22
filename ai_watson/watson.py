@@ -37,9 +37,12 @@ class LlamaModel:
         return flan_llama_model
 
     def create_prompt_template(self):
-        ocena_prompt = "Please make sentiment analysis in below statement that is written in polish: {input_variables}." \
-                       "Recognise emotions and their intensity. Put it all in one json, with key as emotion you have" \
-                       "detected and value as its intensity. Give me only this json."
+        ocena_prompt = "Please Recognise emotions and their intensity in below statement: {input_variables}." \
+                       "Put it all in one json, with key as emotion you have " \
+                       "detected and value as its intensity"
+        # ocena_prompt = "Please make sentiment analysis in below statement that is written in polish: {input_variables}." \
+        #                "Recognise emotions and their intensity. Put it all in one json, with key as emotion you have" \
+        #                "detected and value as its intensity. Give me only this json."
         prompt_llama = PromptTemplate(
             input_variables=["statement"],
             template=ocena_prompt,
@@ -52,7 +55,7 @@ class LlamaModel:
             raise ValueError("Model is not created. Call create_model first.")
         logger.debug(statement_to_classify)
         prompt_llama = self.create_prompt_template()
-        flan_to_llama = LLMChain(llm=self.model.to_langchain(), prompt=prompt_llama)
+        flan_to_llama = LLMChain(llm=self.model.to_langchain(), prompt=prompt_llama, verbose=1)
         qa = SimpleSequentialChain(chains=[flan_to_llama], verbose=True)
         outcome = qa.run(statement_to_classify)
         logger.debug(outcome)
