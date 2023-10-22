@@ -8,7 +8,7 @@ import store, { RootState } from '../../redux/store';
 const SelectKid = () =>{
   const dispatch = store.dispatch;
   const navigate = useNavigate();
-  let availableKids:any[] = useSelector((root:RootState)=>root.statusSlice.status.availableKids);
+  let availableKids:any[] = useSelector((root:RootState)=>root.statusSlice.status.availableKids).filter(k=>k.type==='kid');
 
   const [expandedItem, setExpandedItem] = useState()
 

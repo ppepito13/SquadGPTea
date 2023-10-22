@@ -25,6 +25,7 @@ export interface UserType{
   username:string;
   type: string;
   therapist:UserType;
+  parent:UserType;
   createdAt?: Date;
   objectId: string;
   updatedAt?: Date;

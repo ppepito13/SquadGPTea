@@ -25,7 +25,7 @@ const App = () =>{
   const user:UserType = useSelector((root:RootState)=>root.userSlice.api.user);
   const selectedKid = useSelector((root:RootState)=>root.statusSlice.status.selectedKid);
   const availableKids:UserType[] = useSelector((root:RootState)=>root.statusSlice.status.availableKids);
-
+  
   let disableMenu = !user;
 
   useEffect(()=>{
@@ -36,6 +36,8 @@ const App = () =>{
 
   useEffect(()=>{
     if(user?.type === 'kid'){
+      dispatch(startLiveQuery(user.objectId, [user.therapist.objectId]));
+    }else if(user?.type === 'parent'){
       dispatch(startLiveQuery(user.objectId, [user.therapist.objectId]));
     }else if(user?.type === 'terap'){
       if(availableKids.length>0){
@@ -74,7 +76,6 @@ const App = () =>{
       )
     }else if(user && user.type === "parent"){
       const menu = [
-        {label:"wall", href:"/"},
         {label:"Homework", href:"/homework"},
         {label:"Chat", href:"/chat"},
         {label:"Logout", href:"/logout"}
@@ -95,7 +96,8 @@ const App = () =>{
           {label:"Patient wall", href:"/wall"},
           {label:"Patient homework's", href:"/homework"},
           {label:"Patient emotion chart", href:"/chart"},
-          {label:"Patient chat", href:"/chat"},
+          {label:"Patient chat", href:"/patientchat"},
+          {label:"Parent chat", href:"/parentchat"},
           {label:"Logout", href:"/logout"}
         ]
         return (
@@ -104,7 +106,8 @@ const App = () =>{
             <Route path="wall" element={<Wall selectedKid={selectedKid}/>} />
             <Route path="homework" element={<HomeWork selectedKid={selectedKid} />} />
             <Route path="newhomework" element={<NewHomeWork />} />
-            <Route path="chat" element={<Chat selectedKid={selectedKid}/>} />
+            <Route path="patientchat" element={<Chat selectedKid={selectedKid}/>} />
+            <Route path="parentchat" element={<Chat slectedParent={selectedKid.parent.objectId}/>} />
             <Route path="logout" element={<Logout />} />
             <Route path="*" element={<SelectKid />} />
           </Route>

@@ -8,14 +8,14 @@ import { addNewMsg } from '../../redux/ChatSlice';
 import store, { RootState } from '../../redux/store';
 import { MsgType, UserType } from '../../types';
 
-const Chat = ({selectedKid}:Props) =>{
+const Chat = ({selectedKid, slectedParent}:Props) =>{
   const dispatch = store.dispatch;
   const [newMsg, setNewMsg] = useState("");
   const user:UserType = useSelector((root:RootState)=>root.userSlice.api.user);
   const conversations = useSelector((root:RootState)=>root.chatSlice.chat.conversations);
   const count = useSelector((root:RootState)=>root.chatSlice.chat.count);
-  const particianetId = user.therapist?.objectId || selectedKid?.objectId;
-
+  const particianetId = user.therapist?.objectId || selectedKid?.objectId || slectedParent;
+console.log("particianetId", particianetId)
   useEffect(() => {
     window.scrollTo(0, document.body.scrollHeight)
   }, [count])
@@ -64,6 +64,7 @@ const Chat = ({selectedKid}:Props) =>{
 
 interface Props{
   selectedKid: UserType;
+  slectedParent: string;
 }
 
 export default Chat;

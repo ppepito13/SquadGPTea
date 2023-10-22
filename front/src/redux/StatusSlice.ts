@@ -17,7 +17,7 @@ export const StatusSlice = createSlice({
       status.selectedKid = payload;
     },
     setAvailableKids: ({status}, {payload}) => {
-      status.availableKids = payload.filter(p=>p.type==='kid');
+      status.availableKids = payload.filter(p=>p.type==='kid' || p.type==='parent');
     },
   },
 })

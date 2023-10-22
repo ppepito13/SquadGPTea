@@ -47,6 +47,7 @@ export const newHomework = (newHomework:HomeworkType, selectedKid:UserType) =>{
       const ACL = {}
       ACL[objectId] = { "read": true, "write": true }
       ACL[selectedKid.objectId] = { "read": true, "write": false }
+      ACL[selectedKid.parent.objectId] = { "read": true, "write": false }
       api.post('/classes/Homework', {...newHomework, ACL, owner:{"__type":"Pointer",className:"_User", objectId:selectedKid.objectId}}).then((response:any) =>{
         dispatch(addHomework({...response.data, ...newHomework}))
         resolve(response.data);

@@ -13,7 +13,7 @@ export const ChatSlice = createSlice({
       conversations: {},
       partycipantsIds: [],
       count: 0,
-      liveQuery: []
+      liveQuery: [] as any[]
     },
   },
   reducers: {
@@ -49,40 +49,41 @@ export const ChatSlice = createSlice({
 
 export const startLiveQuery = (autorId:string, partycipantsIds:string[])=>{
   return (dispatch:Redux.Dispatch) =>{
+    if(store.getState().chatSlice.chat.liveQuery.length===0){
+      dispatch(clearLiveQuery());
+      dispatch(setPartycipats(partycipantsIds));
 
-    dispatch(clearLiveQuery());
-    dispatch(setPartycipats(partycipantsIds));
-
-    const where= {
-      "$or":[ {sender:{"__type":"Pointer", className:"_User", objectId:autorId}},
-              {reciver:{"__type":"Pointer", className:"_User", objectId:autorId}}]
-    }
-    const whereStr = "&where="+JSON.stringify(where);
-    api.get('/classes/Msg?order=-createdAt'+whereStr).then((response:any) =>{
-      const newConverstaions = {};
-      partycipantsIds.forEach(pi=>{
-        newConverstaions[pi]=response.data.results.filter(r=>r.reciver.objectId===pi || r.sender.objectId===pi);
-      })
-      dispatch(setConversations(newConverstaions));
-      return response.data;
-    }).catch((error:any) =>{
-      console.log(error)
-      return error;
-    });
-    const newLiveQuery = [];
-    const createLiveQuery = async (field:string, value:any) =>{
-      Parse.initialize("collabothon");
-      Parse.serverURL = 'https://polarny.it/parse'
-      let query = new Parse.Query('Msg');
-      query.equalTo(field, value);
-      let subscription = await query.subscribe();
-      dispatch(addToLiveQuery(subscription));
-      subscription.on('create', (msg) => {
-        dispatch(addToConversaton(msg));
+      const where= {
+        "$or":[ {sender:{"__type":"Pointer", className:"_User", objectId:autorId}},
+                {reciver:{"__type":"Pointer", className:"_User", objectId:autorId}}]
+      }
+      const whereStr = "&where="+JSON.stringify(where);
+      api.get('/classes/Msg?order=-createdAt'+whereStr).then((response:any) =>{
+        const newConverstaions = {};
+        partycipantsIds.forEach(pi=>{
+          newConverstaions[pi]=response.data.results.filter(r=>r.reciver.objectId===pi || r.sender.objectId===pi);
+        })
+        dispatch(setConversations(newConverstaions));
+        return response.data;
+      }).catch((error:any) =>{
+        console.log(error)
+        return error;
       });
+      const newLiveQuery = [];
+      const createLiveQuery = async (field:string, value:any) =>{
+        Parse.initialize("collabothon");
+        Parse.serverURL = 'https://polarny.it/parse'
+        let query = new Parse.Query('Msg');
+        query.equalTo(field, value);
+        let subscription = await query.subscribe();
+        dispatch(addToLiveQuery(subscription));
+        subscription.on('create', (msg) => {
+          dispatch(addToConversaton(msg));
+        });
+      }
+      createLiveQuery('sender', {"__type":"Pointer", className:"_User", objectId:autorId});
+      createLiveQuery('reciver', {"__type":"Pointer", className:"_User", objectId:autorId});
     }
-    createLiveQuery('sender', {"__type":"Pointer", className:"_User", objectId:autorId});
-    createLiveQuery('reciver', {"__type":"Pointer", className:"_User", objectId:autorId});
   }
 }
 
