@@ -20,6 +20,7 @@ import ChartEmo from './pages/common/ChartEmo';
 import Chat from './pages/common/Chat';
 import { startLiveQuery } from './redux/ChatSlice';
 import { UserType } from './types';
+import { FaChalkboard, FaClipboardCheck, FaCommentDots, FaExchangeAlt, FaRegChartBar, FaSignOutAlt } from 'react-icons/fa';
 const App = () =>{
   const dispatch = store.dispatch;
   const user:UserType = useSelector((root:RootState)=>root.userSlice.api.user);
@@ -57,11 +58,11 @@ const App = () =>{
   const getRoutes = (userType:string) =>{
     if(user && user.type === "kid"){
       const menu = [
-        {label:"Wall", href:"/"},
-        {label:"Homework", href:"/homework"},
-        {label:"Emotion chart", href:"/chart"},
-        {label:"Chat", href:"/chat"},
-        {label:"Logout", href:"/logout"}
+        {label:"Wall", href:"/", icon:<FaChalkboard/>},
+        {label:"Homework", href:"/homework", icon:<FaClipboardCheck/>},
+        {label:"Emotion chart", href:"/chart", icon:<FaRegChartBar/>},
+        {label:"Chat", href:"/chat", icon:<FaCommentDots/>},
+        {label:"Logout", href:"/logout", icon:<FaSignOutAlt/>}
       ]
       return (
         <Route path="/" element={<Layout menu={menu} disableMenu={disableMenu} user={user}/>}>
@@ -76,9 +77,9 @@ const App = () =>{
       )
     }else if(user && user.type === "parent"){
       const menu = [
-        {label:"Homework", href:"/homework"},
-        {label:"Chat", href:"/chat"},
-        {label:"Logout", href:"/logout"}
+        {label:"Homework", href:"/homework", icon:<FaClipboardCheck/>},
+        {label:"Chat", href:"/chat", icon:<FaCommentDots/>},
+        {label:"Logout", href:"/logout", icon:<FaSignOutAlt/>}
       ]
       return (
         <Route path="/" element={<Layout menu={menu} disableMenu={disableMenu}/>}>
@@ -92,13 +93,13 @@ const App = () =>{
     }else if(user && user.type === "terap"){
       if(selectedKid){
         const menu = [
-          {label:"Select patient", href:"/"},
-          {label:"Patient wall", href:"/wall"},
-          {label:"Patient homework's", href:"/homework"},
-          {label:"Patient emotion chart", href:"/chart"},
-          {label:"Patient chat", href:"/patientchat"},
-          {label:"Parent chat", href:"/parentchat"},
-          {label:"Logout", href:"/logout"}
+          {label:"Select patient", href:"/", icon:<FaExchangeAlt/>},
+          {label:"Patient wall", href:"/wall", icon:<FaChalkboard/>},
+          {label:"Patient homework's", href:"/homework", icon:<FaClipboardCheck/>},
+          {label:"Patient emotion chart", href:"/chart", icon:<FaRegChartBar/>},
+          {label:"Patient chat", href:"/patientchat", icon:<FaCommentDots/>},
+          {label:"Parent chat", href:"/parentchat", icon:<FaCommentDots/>},
+          {label:"Logout", href:"/logout", icon:<FaSignOutAlt/>}
         ]
         return (
           <Route path="/" element={<Layout menu={menu} disableMenu={disableMenu} user={selectedKid}/>}>
@@ -114,8 +115,8 @@ const App = () =>{
         )
       }else{
         const menu = [
-          {label:"select kid", href:"/"},
-          {label:"logout", href:"/logout"}
+          {label:"select kid", href:"/", icon:<FaExchangeAlt/>},
+          {label:"logout", href:"/logout", icon:<FaSignOutAlt/>}
         ]
         return (
           <Route path="/" element={<Layout menu={menu} disableMenu={disableMenu}/>}>
@@ -127,12 +128,12 @@ const App = () =>{
       }
     }else if(user && userType === "test"){
       const menu = [
-        {label:"root", href:"/"},
-        {label:"api", href:"/api"},
-        {label:"camera", href:"/camera"},
-        {label:"voice", href:"/voice"},
-        {label:"unknown", href:"/unknown"},
-        {label:"logout", href:"/logout"}
+        {label:"root", href:"/", icon:<FaClipboardCheck/>},
+        {label:"api", href:"/api", icon:<FaClipboardCheck/>},
+        {label:"camera", href:"/camera", icon:<FaClipboardCheck/>},
+        {label:"voice", href:"/voice", icon:<FaClipboardCheck/>},
+        {label:"unknown", href:"/unknown", icon:<FaClipboardCheck/>},
+        {label:"logout", href:"/logout", icon:<FaSignOutAlt/>}
       ]
       return (
         <Route path="/" element={<Layout menu={menu} disableMenu={disableMenu}/>}>

@@ -59,7 +59,7 @@ const Layout = ({menu, disableMenu, user}: React.PropsWithChildren<Props>) =>{
                 onClick={()=>navigate(row.href)}
                 modifier={location.pathname===row.href? "active": "not-active"}
                 >
-                {row.label}
+                <span className='icon'>{row.icon}</span>{row.label}
               </ListItem>
             )}
             />
@@ -90,6 +90,7 @@ interface Props{
 interface AppLink{
   label: string;
   href: string;
+  icon: Element;
 }
 
 export default Layout;
