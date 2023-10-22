@@ -7,7 +7,7 @@ const config = {
   "publicServerURL": "https://polarny.it/parse",
   "port": 1337,
   "liveQuery": {
-    "classNames": ['PushMsg']
+    "classNames": ['Msg']
   }
 }
 
