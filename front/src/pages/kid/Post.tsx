@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Card, Col, Row, Switch } from "react-onsenui";
 import 'moment-timezone';
 import { PostType } from "../../types";
@@ -9,8 +9,9 @@ import emotionsList from '../common/emocje.json';
 import { FaPlay } from "react-icons/fa";
 import moment from "moment";
 
-const Post = ({post, editable}:Props) =>{
+const Post = ({post, editable, terapist}:Props) =>{
   const dispatch = store.dispatch;
+  const [showSentiment, setShowSentiment] = useState(false);
 
   const playRecord = (r) =>{
     console.log(r)
@@ -41,6 +42,12 @@ const Post = ({post, editable}:Props) =>{
                 <p className="sharedText">{shared? "shared" : ""}</p>
               </Col>
             }
+
+            {terapist && post.sentiment &&
+              <Col>
+                <Switch checked={showSentiment} onChange={()=>setShowSentiment(!showSentiment)} />
+              </Col>
+            }
           </Row>
         </Col>
         <Col>
@@ -63,6 +70,12 @@ const Post = ({post, editable}:Props) =>{
           </Row>
         </Col>
       </Row>
+      {showSentiment && <Row>
+        <Col>
+          <hr/>
+          <pre>{post.sentiment}</pre>
+        </Col>
+      </Row>}
     </Card>
 
   )
@@ -71,6 +84,7 @@ const Post = ({post, editable}:Props) =>{
 interface Props{
   post:PostType;
   editable: boolean;
+  terapist?: boolean;
 }
 
 export default Post;

@@ -28,7 +28,7 @@ const Wall = ({selectedKid}:Props) =>{
           length={posts?.length || 0}
           renderRow={(index) =>
             <ListItem key={index} modifier="nodivider">
-              <Post post={posts[index]} editable={editable}/>
+              <Post post={posts[index]} editable={editable} terapist={user?.type==='terap'}/>
             </ListItem>
           }
           calculateItemHeight={() => 44}

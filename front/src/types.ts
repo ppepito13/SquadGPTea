@@ -5,6 +5,7 @@ export interface PostType{
   images: string[];
   records: string[];
   homework: any;
+  sentiment: string;
   owner?: any;
   ACL?:any;
   createdAt?: Date;
