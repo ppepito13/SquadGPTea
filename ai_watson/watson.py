@@ -25,6 +25,7 @@ class LlamaModel:
         self.project_id = os.getenv("PROJECTID", "")
         self.model = self.create_model()
         self.statement = statement_to_classify
+        self.statement_en = ""
 
     def create_model(self):
         logger.debug("In create_model")
@@ -42,12 +43,13 @@ class LlamaModel:
 
     def create_prompt_template(self):
         logger.debug("In create_prompt_template")
-        ocena_prompt = "Please Recognise emotions and their intensity in below statement: {input_variables}." \
-                       "Put it all in one json, with key as emotion you have " \
-                       "detected and value as its intensity"
-        # ocena_prompt = "Please make sentiment analysis in below statement that is written in polish: {input_variables}." \
-        #                "Recognise emotions and their intensity. Put it all in one json, with key as emotion you have" \
-        #                "detected and value as its intensity. Give me only this json."
+        # ocena_prompt = "Please Recognise positive sentiment in below statement: {input_variables}."
+        # ocena_prompt = "Please Recognise emotions and their intensity in below statement: {input_variables}." \
+        #                "Put it all in one json, with key as emotion you have " \
+        #                "detected and value as its intensity"
+        ocena_prompt = "Please make sentiment analysis in below statement that is written in polish: {input_variables}." \
+                       "Recognise emotions and their intensity. Put it all in one json, with key as emotion you have" \
+                       "detected and value as its intensity. Give me only this json."
         prompt_llama = PromptTemplate(
             input_variables=["statement"],
             template=ocena_prompt,
@@ -67,20 +69,23 @@ class LlamaModel:
         qa = SimpleSequentialChain(chains=[flan_to_llama], verbose=True)
         logger.debug(f"in run_model, qa is : {qa}")
         outcome = qa.run(self.statement)
-        logger.debug(outcome)
+        # self.translate_to_en()
+        # outcome = qa.run(self.statement_en)
+        # outcome_pl = self.translate_to_pl(outcome)
+        # logger.debug(outcome_pl)
+        # return outcome_pl
         return outcome
 
-    def translate_to(self, output_language, statement_to_translate):
+    def translate_to_en(self):
         print(googletrans.LANGUAGES)
         translator = googletrans.Translator()
-        result = translator.translate(statement_to_translate, dest=output_language)
+        result = translator.translate(self.statement, src='pl', dest='en')
+        print(f"TRANSLACJA TO EN: {result.text}")
+        self.statement_en = result.text
 
-        print(result.src)
-        print(result.dest)
-        print(result.origin)
-        print(result.text)
-        print(result.pronunciation)
-
-
-# llama_model = LlamaModel("Dupa dupa i kamieni kupa")
-# llama_model.translate_to("en", llama_model.statement)
+    def translate_to_pl(self, llm_result):
+        print(googletrans.LANGUAGES)
+        translator = googletrans.Translator()
+        result = translator.translate(llm_result, src='en', dest='pl')
+        print(f"TRANSLACJA TO PL: {result.text}")
+        return result.text
