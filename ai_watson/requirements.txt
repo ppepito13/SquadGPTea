@@ -6,3 +6,5 @@ ibm-watson-machine-learning>=1.0.327
 fastapi
 pymongo
 uvicorn
+googletrans==4.0.0-rc1
+parse

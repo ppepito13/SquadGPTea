@@ -1,5 +1,11 @@
 # Założenia projektu dla Słonie na Balkonie
 
+## Cel aplikacji
+
+- Pomoc w zadaniach
+- integracja dziecko-rodzic-terapeuta
+- pomoc w psychoterapii
+
 ## Widoki
 
 ### Terapeuta
@@ -19,6 +25,8 @@
 
 ### Dziecko
 
+#### Ekran startowy
+
 ## Watson
 
 Moduły jakie chcemy użyć:
@@ -33,4 +41,5 @@ Moduły jakie chcemy użyć:
 
 Za każde zrobione na czas pytanie, jedna część słonika z logo Słoni na Balkonie zostaje pokolorowana, można podzielić słonika na więcej/mniej części w zależności od liczby pytań -> dopytać ile mniej więcej zadań tygodniowo, ustalić czy słoniki się resetują, czy są zliczane tygodniowo czy ogólnie
 
+Kolorystyka od Adriana
 
