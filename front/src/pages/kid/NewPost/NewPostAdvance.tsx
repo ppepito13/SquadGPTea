@@ -14,6 +14,7 @@ import emotionsList from '../../common/emocje.json';
 import emotionGrupsList from '../../common/grupyEmocji.json';
 import { FaCamera, FaCircle, FaPlay, FaRegTimesCircle, FaRegTrashAlt, FaSave, FaStop } from "react-icons/fa";
 import { GenericResponse, RecordingData, VoiceRecorder } from 'capacitor-voice-recorder';
+import ons from 'onsenui';
 
 const NewPostAdvance = () =>{
   const dispatch = store.dispatch;
@@ -46,7 +47,7 @@ const NewPostAdvance = () =>{
           })
         }
       })
-    }catch(ee=>{
+    }catch((ee)=>{
       ons.notification.toast("NO privilages", {
         timeout: 2000
       });
