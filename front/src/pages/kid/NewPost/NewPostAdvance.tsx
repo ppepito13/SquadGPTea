@@ -14,6 +14,7 @@ import emotionsList from '../../common/emocje.json';
 import emotionGrupsList from '../../common/grupyEmocji.json';
 import { FaCamera, FaCircle, FaPlay, FaRegTimesCircle, FaRegTrashAlt, FaSave, FaStop } from "react-icons/fa";
 import { GenericResponse, RecordingData, VoiceRecorder } from 'capacitor-voice-recorder';
+import ons from 'onsenui';
 
 const NewPostAdvance = () =>{
   const dispatch = store.dispatch;
@@ -37,6 +38,7 @@ const NewPostAdvance = () =>{
   },[dispatch])
 
   useEffect(()=>{
+    try{
       VoiceRecorder.canDeviceVoiceRecord().then((result: GenericResponse) => console.log(result.value));
       VoiceRecorder.hasAudioRecordingPermission().then((result: GenericResponse) => {
         if(!result.value){
@@ -45,6 +47,11 @@ const NewPostAdvance = () =>{
           })
         }
       })
+    }catch(e){
+      ons.notification.toast("NO privilages", {
+        timeout: 2000
+      });
+    }
   },[])
 
   const addPost = () =>{
@@ -56,24 +63,36 @@ const NewPostAdvance = () =>{
   }
 
   const takePicture = async () => {
-    const image = await Camera.getPhoto({
-      quality: 90,
-      allowEditing: true,
-      resultType: CameraResultType.Uri
-    });
-    let blob = await fetch(image.webPath!).then(r => r.blob());
-    var file = new File([blob], "name");
-    dispatch(uploadFile("test1", file, "png")).then((res)=>{
-      setImages([...images, res.url]);
-    }).catch(err=>{
-        setImages([err]);
-    })
+    try{
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: true,
+        resultType: CameraResultType.Uri
+      });
+      let blob = await fetch(image.webPath!).then(r => r.blob());
+      var file = new File([blob], "name");
+      dispatch(uploadFile("test1", file, "png")).then((res)=>{
+        setImages([...images, res.url]);
+      }).catch(err=>{
+          setImages([err]);
+      })
+    }catch(ee){
+      ons.notification.toast("NO privilages", {
+        timeout: 2000
+      });
+    }
   };
 
   const startRecord = () =>{
-    VoiceRecorder.startRecording()
-      .then((result: GenericResponse) => setRecording(true))
-      .catch(error => console.log(error))
+    try{
+      VoiceRecorder.startRecording()
+        .then((result: GenericResponse) => setRecording(true))
+        .catch(error => console.log(error))
+    }catch(ee){
+      ons.notification.toast("NO privilages", {
+        timeout: 2000
+      });
+    }
   }
 
   const stopRecord = () =>{
