@@ -25,7 +25,7 @@ const App = () =>{
   const user:UserType = useSelector((root:RootState)=>root.userSlice.api.user);
   const selectedKid = useSelector((root:RootState)=>root.statusSlice.status.selectedKid);
   const availableKids:UserType[] = useSelector((root:RootState)=>root.statusSlice.status.availableKids);
-  
+
   let disableMenu = !user;
 
   useEffect(()=>{
@@ -107,7 +107,7 @@ const App = () =>{
             <Route path="homework" element={<HomeWork selectedKid={selectedKid} />} />
             <Route path="newhomework" element={<NewHomeWork />} />
             <Route path="patientchat" element={<Chat selectedKid={selectedKid}/>} />
-            <Route path="parentchat" element={<Chat slectedParent={selectedKid.parent.objectId}/>} />
+            <Route path="parentchat" element={<Chat slectedParent={selectedKid.parent?.objectId}/>} />
             <Route path="logout" element={<Logout />} />
             <Route path="*" element={<SelectKid />} />
           </Route>
