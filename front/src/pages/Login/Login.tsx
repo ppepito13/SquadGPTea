@@ -17,7 +17,7 @@ const Test = () =>{
       </Row>
       <Row>
         <Col className="text-center">
-          <Button modifier='login' onClick={()=>dispatch(login("parent", "parent"))}><FaHouseUser/>LOGIN parent</Button>
+          <Button modifier='login' onClick={()=>dispatch(login("Grzymisława Pipka", "parent"))}><FaHouseUser/>LOGIN parent</Button>
         </Col>
       </Row>
       <Row>
