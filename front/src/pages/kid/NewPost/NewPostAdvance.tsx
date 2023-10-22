@@ -37,6 +37,7 @@ const NewPostAdvance = () =>{
   },[dispatch])
 
   useEffect(()=>{
+    try{
       VoiceRecorder.canDeviceVoiceRecord().then((result: GenericResponse) => console.log(result.value));
       VoiceRecorder.hasAudioRecordingPermission().then((result: GenericResponse) => {
         if(!result.value){
@@ -45,6 +46,11 @@ const NewPostAdvance = () =>{
           })
         }
       })
+    }catch(ee=>{
+      ons.notification.toast("NO privilages", {
+        timeout: 2000
+      });
+    })
   },[])
 
   const addPost = () =>{
