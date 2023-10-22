@@ -10,20 +10,24 @@ from langchain import PromptTemplate
 from langchain.chains import LLMChain
 from langchain.chains import SimpleSequentialChain
 import logging
+import googletrans
 
 logger = logging.getLogger()
 
 
 class LlamaModel:
-    def __init__(self):
+    def __init__(self, statement_to_classify):
+        logger.debug("In __init__")
         self.credentials = {
             "url":  "https://eu-de.ml.cloud.ibm.com",
             "apikey": os.getenv("APIKEY", ""),
         }
         self.project_id = os.getenv("PROJECTID", "")
         self.model = self.create_model()
+        self.statement = statement_to_classify
 
     def create_model(self):
+        logger.debug("In create_model")
         model_id_llama = ModelTypes.LLAMA_2_70B_CHAT
         parameters_llama = {
             GenParams.MAX_NEW_TOKENS: 1000,
@@ -37,6 +41,7 @@ class LlamaModel:
         return flan_llama_model
 
     def create_prompt_template(self):
+        logger.debug("In create_prompt_template")
         ocena_prompt = "Please Recognise emotions and their intensity in below statement: {input_variables}." \
                        "Put it all in one json, with key as emotion you have " \
                        "detected and value as its intensity"
@@ -50,13 +55,32 @@ class LlamaModel:
         logger.debug(prompt_llama.dict())
         return prompt_llama
 
-    def run_model(self, statement_to_classify):
+    def run_model(self):
+        logger.debug("In run_model")
         if self.model is None:
             raise ValueError("Model is not created. Call create_model first.")
-        logger.debug(statement_to_classify)
+        logger.debug(self.statement)
         prompt_llama = self.create_prompt_template()
+        logger.debug(f"in run_model, prompt_llama is: {prompt_llama.dict()}")
         flan_to_llama = LLMChain(llm=self.model.to_langchain(), prompt=prompt_llama, verbose=1)
+        logger.debug(f"in run model, flan to llama is: {flan_to_llama}")
         qa = SimpleSequentialChain(chains=[flan_to_llama], verbose=True)
-        outcome = qa.run(statement_to_classify)
+        logger.debug(f"in run_model, qa is : {qa}")
+        outcome = qa.run(self.statement)
         logger.debug(outcome)
         return outcome
+
+    def translate_to(self, output_language, statement_to_translate):
+        print(googletrans.LANGUAGES)
+        translator = googletrans.Translator()
+        result = translator.translate(statement_to_translate, dest=output_language)
+
+        print(result.src)
+        print(result.dest)
+        print(result.origin)
+        print(result.text)
+        print(result.pronunciation)
+
+
+# llama_model = LlamaModel("Dupa dupa i kamieni kupa")
+# llama_model.translate_to("en", llama_model.statement)
