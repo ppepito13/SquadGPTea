@@ -2,8 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import Redux from 'redux';
 import api from '../api';
 
-// let userInit:User = JSON.parse(localStorage.getItem("user") || JSON.stringify({exp:1000, resources:1000, tech:basicTech}));
-
 export const StatusSlice = createSlice({
   name: 'userData',
   initialState: {

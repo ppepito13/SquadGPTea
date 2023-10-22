@@ -4,8 +4,6 @@ import api from '../api';
 import { HomeworkType, UserType } from '../types';
 import store from './store';
 
-// let userInit:User = JSON.parse(localStorage.getItem("user") || JSON.stringify({exp:1000, resources:1000, tech:basicTech}));
-
 export const HomeworkSlice = createSlice({
   name: 'userData',
   initialState: {
@@ -20,13 +18,23 @@ export const HomeworkSlice = createSlice({
     setHomeworks: ({homeworkStore}, {payload}) => {
       homeworkStore.homeworks = payload;
     },
+    updateHomework: ({homeworkStore}, {payload}) => {
+      const homeworkToUpdate = homeworkStore.homeworks.find(h=>h.objectId === payload.objectId);
+      if(homeworkToUpdate && payload.rating){
+        homeworkToUpdate.rating = payload.rating;
+      }
+      if(homeworkToUpdate && payload.archived){
+        homeworkToUpdate.archived = true;
+        homeworkStore.homeworks = homeworkStore.homeworks.filter(h=>!h.archived)
+      }
+    }
   },
 })
 
 export const requestHomeworks = (selectedKid?:UserType)=>{
   return (dispatch:Redux.Dispatch) =>{
     return new Promise((resolve) =>{
-      const where = selectedKid ? '&where={"owner":{"__type":"Pointer","className":"_User", "objectId":"'+selectedKid.objectId+'"}}' : "";
+      const where = selectedKid ? '&where={"$and":[{"archived":false},{"owner":{"__type":"Pointer","className":"_User", "objectId":"'+selectedKid.objectId+'"}}]}' : "";
       api.get('/classes/Homework?order=-createdAt'+where).then((response:any) =>{
         dispatch(setHomeworks(response.data.results))
         resolve(response.data);
@@ -46,7 +54,7 @@ export const newHomework = (newHomework:HomeworkType, selectedKid:UserType) =>{
       const objectId=store.getState().userSlice.api.user.objectId;
       const ACL = {}
       ACL[objectId] = { "read": true, "write": true }
-      ACL[selectedKid.objectId] = { "read": true, "write": false }
+      ACL[selectedKid.objectId] = { "read": true, "write": true }
       ACL[selectedKid.parent.objectId] = { "read": true, "write": false }
       api.post('/classes/Homework', {...newHomework, ACL, owner:{"__type":"Pointer",className:"_User", objectId:selectedKid.objectId}}).then((response:any) =>{
         dispatch(addHomework({...response.data, ...newHomework}))
@@ -61,6 +69,22 @@ export const newHomework = (newHomework:HomeworkType, selectedKid:UserType) =>{
   }
 }
 
-export const { addHomework, setHomeworks } = HomeworkSlice.actions
+export const updateHomeworks = (objectId, archived, rating) =>{
+  return (dispatch:Redux.Dispatch) =>{
+    return new Promise((resolve) =>{
+      api.put('/classes/Homework/'+objectId, {archived, rating}).then((response:any) =>{
+        console.log(response.data)
+        dispatch(updateHomework({objectId, archived, rating}));
+        resolve(response.data);
+        return response.data;
+      }).catch((error:any) =>{
+        console.log(error)
+        return error;
+      });
+    });
+  }
+}
+
+export const { addHomework, setHomeworks, updateHomework } = HomeworkSlice.actions
 
 export default HomeworkSlice.reducer

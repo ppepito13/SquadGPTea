@@ -15,6 +15,8 @@ export interface PostType{
 export interface HomeworkType{
   title:string;
   descr:string;
+  archived: boolean,
+  rating: string,
   owner?: any;
   createdAt?: Date;
   objectId?: string;
