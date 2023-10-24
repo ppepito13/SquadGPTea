@@ -29,6 +29,11 @@
     package:
       name: git-all
       state: present
+      
+  - name: Install nginx
+    package:
+      name: nginx
+      state: present
 
   - name: Install Ionic
     npm: >
